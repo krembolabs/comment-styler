@@ -18,47 +18,111 @@
 		"commands": [
 			{
 				"command": "commentFormatter.bold",
-				"title": "Bold Selection"
+				"title": "𝗕𝗼𝗹𝗱 Selection"
 			},
 			{
 				"command": "commentFormatter.italic",
-				"title": "Italic Selection"
+				"title": "𝘐𝘵𝘢𝘭𝘪𝘤 Selection"
 			},
 			{
 				"command": "commentFormatter.outline",
-				"title": "Outline Selection"
+				"title": "𝕆𝕦𝕥𝕝𝕚𝕟𝕖 Selection"
 			},
 			{
 				"command": "commentFormatter.underline",
-				"title": "Underline Selection"
+				"title": "U͟n͟d͟e͟r͟l͟i͟n͟e Selection"
 			},
 			{
 				"command": "commentFormatter.superscript",
-				"title": "Super-Script Selection"
+				"title": "ˢᵘᵖᵉʳ-ˢᶜʳᶦᵖᵗ Selection"
+			},
+			{
+				"command": "commentFormatter.dummy",
+				"title": "( Please select one word or more )"
+			},
+			{
+				"command": "commentFormatter.bullet",
+				"title": "Place bullet point"
 			}
 		],
 		"keybindings": [
 			{
 				"command": "commentFormatter.bold",
-				"key": "alt+b",
-				"when": "editorTextFocus"
+				"key": "alt+d",
+				"when": "editorTextFocus && editorHasSelection"
 			},
 			{
 				"command": "commentFormatter.italic",
 				"key": "alt+i",
-				"when": "editorTextFocus"
+				"when": "editorTextFocus && editorHasSelection"
 			},
 			{
 				"command": "commentFormatter.underline",
 				"key": "alt+u",
-				"when": "editorTextFocus"
+				"when": "editorTextFocus && editorHasSelection"
 			},
 			{
 				"command": "commentFormatter.outline",
 				"key": "alt+o",
+				"when": "editorTextFocus && editorHasSelection"
+			},
+			{
+				"command": "commentFormatter.bullet",
+				"key": "alt+x",
 				"when": "editorTextFocus"
 			}
-		]
+		],
+		"submenus": [
+			{
+				"id": "commentFormatter.editor.context",
+				"label": "Format Selection"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"submenu": "commentFormatter.editor.context",
+					"group": "Comment Formatter"
+				}
+			],
+			"commentFormatter.editor.context": [
+				{
+					"command": "commentFormatter.bold",
+					"group": "commentFormatter",
+					"when": "editorTextFocus && editorHasSelection "
+				},
+				{
+					"command": "commentFormatter.italic",
+					"group": "commentFormatter@1",
+					"when": "editorTextFocus && editorHasSelection  "
+				},
+				{
+					"command": "commentFormatter.outline",
+					"group": "commentFormatter@1",
+					"when": "editorTextFocus&& editorHasSelection "
+				},
+				{
+					"command": "commentFormatter.underline",
+					"group": "commentFormatter@1",
+					"when": "editorTextFocus&& editorHasSelection "
+				},
+				{
+					"command": "commentFormatter.superscript",
+					"group": "commentFormatter@1",
+					"when": "editorTextFocus&& editorHasSelection "
+				},
+				{
+					"command": "commentFormatter.dummy",
+					"group": "commentFormatter@1",
+					"when": "editorTextFocus && !editorHasSelection"
+				},
+				{
+					"command": "commentFormatter.bullet",
+					"group": "bullets",
+					"when": "editorTextFocus"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

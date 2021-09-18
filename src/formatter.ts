@@ -60,6 +60,20 @@ class Formatter {
     superscript() {
         this.formatSelection(FontType.superscript);
     }
+    bullet() {
+        const editor = vscode.window.activeTextEditor;
+
+        if (editor) {
+            
+            const position = editor.selection.active;
+            
+            let bulletStr: string = "• "; // Or "►"
+
+            editor.edit(editBuilder => {
+                editBuilder.insert(position, bulletStr);
+            });
+        }
+    }
 
     // Receives a sample string and determines which font it uses.
     // 𝗡𝗼𝘁𝗲: The function assumes the string uses a single font thus the test is performed o͟n͟l͟y on the first character.

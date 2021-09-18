@@ -8,6 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('commentFormatter.outline', () => {Formatter.outline();}));
 	context.subscriptions.push(vscode.commands.registerCommand('commentFormatter.underline', () => {Formatter.underline();}));
 	context.subscriptions.push(vscode.commands.registerCommand('commentFormatter.superscript', () => { Formatter.superscript();}));	
+	context.subscriptions.push(vscode.commands.registerCommand('commentFormatter.bullet', () => { Formatter.bullet();}));	
 }
 
 export function deactivate() {}
