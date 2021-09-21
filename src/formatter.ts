@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { BulletType, Style } from './types';
 
 class FontAttributes {
 
@@ -45,30 +46,25 @@ const FontType = {
 
 class Formatter {
 
-    bold() {
-        this.formatSelection(FontType.bold);
+    stylizeSelection(style:Style) {
+        switch(style) {
+            case Style.bold: this.formatSelection(FontType.bold);break;
+            case Style.italic: this.formatSelection(FontType.italic);break;
+            case Style.outline: this.formatSelection(FontType.outline);break;
+            case Style.underline: this.formatSelection(FontType.underline);break;
+            case Style.superscript: this.formatSelection(FontType.superscript);break;
+        }
     }
-    italic() {
-        this.formatSelection(FontType.italic);
-    }
-    outline() {
-        this.formatSelection(FontType.outline);
-    }
-    underline() {
-        this.formatSelection(FontType.underline);
-    }
-    superscript() {
-        this.formatSelection(FontType.superscript);
-    }
-    bullet() {
+
+    bullet(type:BulletType=BulletType.circle) {
         const editor = vscode.window.activeTextEditor;
 
         if (editor) {
             
             const position = editor.selection.active;
             
-            let bulletStr: string = "• "; // Or "►"
-
+            let bulletStr: string = (type==BulletType.circle)?"• ":"► ";
+            
             editor.edit(editBuilder => {
                 editBuilder.insert(position, bulletStr);
             });
@@ -129,25 +125,30 @@ class Formatter {
             let curFont = this.getCurFont(word);
             let actualTarget = this.actualFormat(curFont,type);
             
-            let re = RegExp("[" + curFont.letters + "]", curFont.isUnicode?"gu":"g");
-            let resultStr = word.replace(re, chr => {
-                let x = (re.source.indexOf(chr) - 1) / curFont.charSize;
-                if (chr == "͟" && actualTarget!=FontType.underline) {
-                    return ""
-                }
-                let z="";
-                for (let j = 0; j < actualTarget.charPoints;j++) {
-                    // If the element at pos is a UTF-16 high surrogate, we want the code point of the surrogate pair so we skip the low surrogate point
-                    let y = actualTarget.letters.codePointAt(x * actualTarget.charSize+j);
-                    z += String.fromCodePoint(y || 0);
-                }        
-                return z;
-            })
+            let resultStr = this.translate(word, curFont, actualTarget);
 
             editor.edit(editBuilder => {
                 editBuilder.replace(selection, resultStr);
             });
         }
+    }
+
+    translate(word:string, curFont:FontAttributes, actualTarget:FontAttributes) {
+        let re = RegExp("[" + curFont.letters + "]", curFont.isUnicode ? "gu" : "g");
+        let resultStr = word.replace(re, chr => {
+            let x = (re.source.indexOf(chr) - 1) / curFont.charSize;
+            if (chr == "͟" && actualTarget != FontType.underline) {
+                return ""
+            }
+            let z = "";
+            for (let j = 0; j < actualTarget.charPoints; j++) {
+                // If the element at pos is a UTF-16 high surrogate, we want the code point of the surrogate pair so we skip the low surrogate point
+                let y = actualTarget.letters.codePointAt(x * actualTarget.charSize + j);
+                z += String.fromCodePoint(y || 0);
+            }
+            return z;
+        })
+        return resultStr;
     }
 }
 

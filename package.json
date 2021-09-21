@@ -18,19 +18,35 @@
 		"commands": [
 			{
 				"command": "commentFormatter.bold",
-				"title": "𝗕𝗼𝗹𝗱 Selection"
+				"title": "𝗕𝗼𝗹𝗱 Selection",
+				"icon": {
+					"dark": "resource/icon/bold_dark.png",
+					"light": "resource/icon/bold_light.png"
+				}
 			},
 			{
 				"command": "commentFormatter.italic",
-				"title": "𝘐𝘵𝘢𝘭𝘪𝘤 Selection"
+				"title": "𝘐𝘵𝘢𝘭𝘪𝘤 Selection",
+				"icon": {
+					"dark": "resource/icon/italic_dark.png",
+					"light": "resource/icon/italic_light.png"
+				}
 			},
 			{
 				"command": "commentFormatter.outline",
-				"title": "𝕆𝕦𝕥𝕝𝕚𝕟𝕖 Selection"
+				"title": "𝕆𝕦𝕥𝕝𝕚𝕟𝕖 Selection",
+				"icon": {
+					"dark": "resource/icon/outline_dark.png",
+					"light": "resource/icon/outline_light.png"
+				}
 			},
 			{
 				"command": "commentFormatter.underline",
-				"title": "U͟n͟d͟e͟r͟l͟i͟n͟e Selection"
+				"title": "U͟n͟d͟e͟r͟l͟i͟n͟e Selection",
+				"icon": {
+					"dark": "resource/icon/underline_dark.png",
+					"light": "resource/icon/underline_light.png"
+				}
 			},
 			{
 				"command": "commentFormatter.superscript",
@@ -42,7 +58,35 @@
 			},
 			{
 				"command": "commentFormatter.bullet",
-				"title": "Place bullet point"
+				"title": "Place bullet point (•)"
+			},
+			{
+				"command": "commentFormatter.bulletTriangle",
+				"title": "Place triangle bullet (►)"
+			},
+			{
+				"command": "commentFormatter.stylizeDoc",
+				"title": "Stylize Document"
+			},
+			{
+				"command": "commentFormatter.colorRed",
+				"title": "RED",
+				"icon": "resource/icon/red.png"
+			},
+			{
+				"command": "commentFormatter.colorBlue",
+				"title": "BLUE",
+				"icon": "resource/icon/blue.png"
+			},
+			{
+				"command": "commentFormatter.colorGreen",
+				"title": "GREEN",
+				"icon": "resource/icon/green.png"
+			},
+			{
+				"command": "commentFormatter.colorYellow",
+				"title": "YELLOW",
+				"icon": "resource/icon/yellow.png"
 			}
 		],
 		"keybindings": [
@@ -75,14 +119,65 @@
 		"submenus": [
 			{
 				"id": "commentFormatter.editor.context",
-				"label": "Format Selection"
+				"label": "Format Selection",
+				"icon": "./resource/icon/colors.png"
+			},
+			{
+				"id": "commentFormatter.menu.colors",
+				"label": "Colors",
+				"icon": "./resource/icon/colors.png"
 			}
 		],
 		"menus": {
+			"editor/title": [
+				{
+					"submenu": "commentFormatter.menu.colors",
+					"group": "navigation@1"
+				},
+				{
+					"command": "commentFormatter.colorRed",
+					"group": "navigation@1"
+				},
+				{
+					"command": "commentFormatter.bold",
+					"group": "navigation@2"
+				},
+				{
+					"command": "commentFormatter.italic",
+					"group": "navigation@3"
+				},
+				{
+					"command": "commentFormatter.underline",
+					"group": "navigation@3"
+				},
+				{
+					"command": "commentFormatter.outline",
+					"group": "navigation@4"
+				}
+			],
+			"commandPalette": [
+				{
+					"command": "commentFormatter.bulletTriangle"
+				}
+			],
 			"editor/context": [
 				{
 					"submenu": "commentFormatter.editor.context",
 					"group": "Comment Formatter"
+				}
+			],
+			"commentFormatter.menu.colors": [
+				{
+					"command": "commentFormatter.colorRed"
+				},
+				{
+					"command": "commentFormatter.colorBlue"
+				},
+				{
+					"command": "commentFormatter.colorGreen"
+				},
+				{
+					"command": "commentFormatter.colorYellow"
 				}
 			],
 			"commentFormatter.editor.context": [
@@ -118,6 +213,11 @@
 				},
 				{
 					"command": "commentFormatter.bullet",
+					"group": "bullets",
+					"when": "editorTextFocus"
+				},
+				{
+					"command": "commentFormatter.bulletTriangle",
 					"group": "bullets",
 					"when": "editorTextFocus"
 				}
