@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { BulletType, Style } from './types';
-
+import Stylizer from './stylizer';
+import { hasControlCodes, isControlChar } from './utils';
 class FontAttributes {
 
     name: string;
@@ -9,7 +10,8 @@ class FontAttributes {
     isUnicode: boolean;
     letters: string;
 
-    constructor(name: string, charSize: number, charPoints: number, isUnicode:boolean, letters:string) {
+
+    constructor(name: string, charSize: number, charPoints: number, isUnicode: boolean, letters: string) {
         this.name = name;
         this.charSize = charSize;
         this.charPoints = charPoints;
@@ -18,7 +20,7 @@ class FontAttributes {
     }
 }
 
-const Dictionary= {
+const Dictionary = {
     simple: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
     bold: "𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵",
     italic: "𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡0\u00001\u00002\u00003\u00004\u00005\u00006\u00007\u00008\u00009\u0000",
@@ -45,47 +47,122 @@ const FontType = {
 };
 
 class Formatter {
+    ignoreNextEdit = false;
+    isBoldActive = false;
+    isItalicActive = false;
+    isUnderlineActive = false;
+    isOutlineActive = false;
+    isSuperscriptActive = false;
+    edits: any[] = [];
 
-    stylizeSelection(style:Style) {
-        switch(style) {
-            case Style.bold: this.formatSelection(FontType.bold);break;
-            case Style.italic: this.formatSelection(FontType.italic);break;
-            case Style.outline: this.formatSelection(FontType.outline);break;
-            case Style.underline: this.formatSelection(FontType.underline);break;
-            case Style.superscript: this.formatSelection(FontType.superscript);break;
+    stylizeSelection(style: Style) {
+        switch (style) {
+            case Style.bold: this.formatSelection(FontType.bold); break;
+            case Style.italic: this.formatSelection(FontType.italic); break;
+            case Style.outline: this.formatSelection(FontType.outline); break;
+            case Style.underline: this.formatSelection(FontType.underline); break;
+            case Style.superscript: this.formatSelection(FontType.superscript); break;
         }
     }
 
-    bullet(type:BulletType=BulletType.circle) {
+    bullet(type: BulletType = BulletType.circle) {
         const editor = vscode.window.activeTextEditor;
 
         if (editor) {
-            
+
             const position = editor.selection.active;
-            
-            let bulletStr: string = (type==BulletType.circle)?"• ":"► ";
-            
+
+            let bulletStr: string = (type == BulletType.circle) ? "• " : "► ";
+
             editor.edit(editBuilder => {
                 editBuilder.insert(position, bulletStr);
             });
         }
     }
 
+    isSelected(): boolean {
+
+        const editor = vscode.window.activeTextEditor;
+        if (editor) {
+            const word = editor.document.getText(editor.selection);
+            if (word) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    toggleMode(style: Style) {
+
+        if (this.isSelected()) {
+            // Apply the operation on the selected text if exists, in this case do not toggle to sticky mode
+
+            this.isBoldActive = this.isItalicActive = this.isUnderlineActive = this.isOutlineActive = false;
+            vscode.commands.executeCommand('setContext', 'commentFormatter.boldON', this.isBoldActive);
+            vscode.commands.executeCommand('setContext', 'commentFormatter.italicON', this.isItalicActive);
+            vscode.commands.executeCommand('setContext', 'commentFormatter.underlineON', this.isUnderlineActive);
+            vscode.commands.executeCommand('setContext', 'commentFormatter.outlineON', this.isOutlineActive);
+            vscode.commands.executeCommand('setContext', 'commentFormatter.superscriptON', this.isSuperscriptActive);
+
+            this.stylizeSelection(style);
+
+
+        } else {
+            switch (style) {
+                case Style.bold:
+                    this.isBoldActive = !this.isBoldActive;
+                    this.isOutlineActive = this.isUnderlineActive = this.isSuperscriptActive = false;
+                    break;
+                case Style.italic:
+                    this.isItalicActive = !this.isItalicActive;
+                    this.isOutlineActive = this.isUnderlineActive = this.isSuperscriptActive = false;
+                    break;
+                case Style.underline:
+                    this.isUnderlineActive = !this.isUnderlineActive;
+                    this.isBoldActive = this.isItalicActive = this.isOutlineActive = this.isSuperscriptActive = false;
+                    break;
+                case Style.outline:
+                    this.isOutlineActive = !this.isOutlineActive;
+                    this.isBoldActive = this.isItalicActive = this.isUnderlineActive = this.isSuperscriptActive = false;
+                    break;
+                case Style.superscript:
+                    this.isSuperscriptActive = !this.isSuperscriptActive;
+                    this.isBoldActive = this.isItalicActive = this.isUnderlineActive = this.isOutlineActive = false;
+                    break;
+            }
+            vscode.commands.executeCommand('setContext', 'commentFormatter.boldON', this.isBoldActive);
+            vscode.commands.executeCommand('setContext', 'commentFormatter.italicON', this.isItalicActive);
+            vscode.commands.executeCommand('setContext', 'commentFormatter.underlineON', this.isUnderlineActive);
+            vscode.commands.executeCommand('setContext', 'commentFormatter.outlineON', this.isOutlineActive);
+            vscode.commands.executeCommand('setContext', 'commentFormatter.superscriptON', this.isSuperscriptActive);
+
+        }
+    }
+
+
     // Receives a sample string and determines which font it uses.
     // 𝗡𝗼𝘁𝗲: The function assumes the string uses a single font thus the test is performed o͟n͟l͟y on the first character.
-    getCurFont(sample:String):FontAttributes {
+    getCurFont(sample: String): FontAttributes {
 
         // If selection is only a single character, base the decision upon it
         // Otherwise, base decision on the second character - the unicode "special" character.
-        if ((sample.length==1 && (sample.codePointAt(0) || 0)<=255)||
-            (sample.length > 1 && (sample.codePointAt(1) || 0) <= 255)) {
-            return FontType.simple
-        }        
+        let firstCharIndex = 1;
+
+        if (sample.length == 1) {
+            firstCharIndex = 0;
+        } else
+            if (sample.length >= 3 && isControlChar(sample.charAt(0))) {
+                firstCharIndex = 3;
+            }
+        if ((sample.codePointAt(firstCharIndex) || 0) <= 255) {
+            return FontType.simple;
+        }
+
 
         // This is probably not a simple font, go over registered fonts and look for appropriate one
         for (const f in FontType) {
             const font = FontType[f as keyof typeof FontType];
-            if (font.letters.indexOf(sample[1])>=0) {                            
+            if (font.letters.indexOf(sample[firstCharIndex]) >= 0) {
                 return font;
             }
         }
@@ -94,47 +171,110 @@ class Formatter {
 
     // Retrieves the requested format type based on the current and target formats
     // For example, if current format is "𝗯𝗼𝗹𝗱" and the target is "𝘪𝘵𝘢𝘭𝘪𝘤", result will be "𝘽𝙤𝙡𝙙𝙄𝙩𝙖𝙡𝙞𝙘"
-    actualFormat(curFormat: FontAttributes, targetFormat: FontAttributes): FontAttributes{
-        
-        if (curFormat==targetFormat) {
+    actualFormat(curFormat: FontAttributes, targetFormat: FontAttributes): FontAttributes {
+
+        if (curFormat == targetFormat) {
             return FontType.simple;
         } else
-        if (curFormat == FontType.boldItalic && targetFormat == FontType.bold) {
-            return FontType.italic;
-        } else 
-        if (curFormat == FontType.boldItalic && targetFormat == FontType.italic) {
-            return FontType.bold;
-        } else
-        if ((curFormat == FontType.bold && targetFormat == FontType.italic)||
-                (curFormat == FontType.italic && targetFormat == FontType.bold)){
-                return FontType.boldItalic;
-        }
+            if (curFormat == FontType.boldItalic && targetFormat == FontType.bold) {
+                return FontType.italic;
+            } else
+                if (curFormat == FontType.boldItalic && targetFormat == FontType.italic) {
+                    return FontType.bold;
+                } else
+                    if ((curFormat == FontType.bold && targetFormat == FontType.italic) ||
+                        (curFormat == FontType.italic && targetFormat == FontType.bold)) {
+                        return FontType.boldItalic;
+                    }
         return targetFormat;
     }
 
     // Apply the requested formatting 
-    formatSelection(type:FontAttributes) {
+    formatSelection(type: FontAttributes) {
 
         const editor = vscode.window.activeTextEditor;
-        
-        if(editor) {
+
+        if (editor) {
             const document = editor.document;
             const selection = editor.selection;
 
             const word = document.getText(selection);
+            if (!word) {
+                vscode.window.showInformationMessage("Please select some text before performing this operation.");
+                return;
+            }
+
+
             let curFont = this.getCurFont(word);
-            let actualTarget = this.actualFormat(curFont,type);
-            
+            let actualTarget = this.actualFormat(curFont, type);
+
             let resultStr = this.translate(word, curFont, actualTarget);
+            let hasControls = hasControlCodes(resultStr);
 
             editor.edit(editBuilder => {
                 editBuilder.replace(selection, resultStr);
+            }).then(success => {
+                if (success) {
+                    if (hasControls) {
+                        Stylizer.applyRules();
+                    }
+                }
             });
         }
     }
 
-    translate(word:string, curFont:FontAttributes, actualTarget:FontAttributes) {
-        let re = RegExp("[" + curFont.letters + "]", curFont.isUnicode ? "gu" : "g");
+    formatEdit(type: FontAttributes, doc?: vscode.TextDocument) {
+        if (this.edits.length) {
+            this.edits.forEach(edit => {
+                try {
+                    if (edit.text) {
+                        let curFont = this.getCurFont(edit.text);
+                        let actualTarget = this.actualFormat(curFont, type);
+                        let resultStr = this.translate(edit.text, curFont, actualTarget);
+                        this.ignoreNextEdit = true;
+                        const editor = vscode.window.activeTextEditor;
+                        if (editor) {
+                            editor.edit(editBuilder => {
+
+                                let startPos = edit.range.start;
+                                let endPos = startPos.translate(0, edit.text.length);
+                                let range = new vscode.Range(startPos, endPos);
+
+
+                                editBuilder.replace(range, resultStr);
+                                const selection = editor.selection;
+                                //editBuilder.replace(selection, resultStr);
+                            }).then(success => {
+                                // Clear the selection
+                                var pos = editor.selection.end;
+                                editor.selection = new vscode.Selection(pos, pos);
+                            });
+                        }
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            })
+            this.edits = [];
+        }
+    }
+
+    translate(word: string, curFont: FontAttributes, actualTarget: FontAttributes): string {
+        //let re = RegExp("[" + curFont.letters + "]", curFont.isUnicode ? "gu" : "g");
+        let re = RegExp("[" + curFont.letters + "]", "gu");
+
+        // Underline based on unicode tends to continue past the last character, therefore we skip the it
+        let suffix = "";
+        if (actualTarget == FontType.underline) {
+            if (word.length > 1) {
+                suffix = word.charAt(word.length - 1);
+                word = word.substr(0, word.length - 1);
+            } else {
+                return "͟" + word;
+            }
+        }
+
+
         let resultStr = word.replace(re, chr => {
             let x = (re.source.indexOf(chr) - 1) / curFont.charSize;
             if (chr == "͟" && actualTarget != FontType.underline) {
@@ -148,8 +288,59 @@ class Formatter {
             }
             return z;
         })
+        resultStr += suffix;
         return resultStr;
     }
+
+    isStickyModeActive() {
+        return (this.isBoldActive || this.isItalicActive || this.isOutlineActive || this.isUnderlineActive || this.isSuperscriptActive);
+    }
+
+    getCurFontAttr(): FontAttributes {
+        if (this.isBoldActive && this.isItalicActive) {
+            return FontType.boldItalic;
+        } else
+            if (this.isBoldActive) {
+                return FontType.bold;
+            } else
+                if (this.isItalicActive) {
+                    return FontType.italic;
+                } else
+                    if (this.isOutlineActive) {
+                        return FontType.outline;
+                    } else
+                        if (this.isUnderlineActive) {
+                            return FontType.underline;
+                        } else
+                            if (this.isSuperscriptActive) {
+                                return FontType.superscript;
+                            }
+        return FontType.simple;
+
+    }
+
+    onEdit(event: vscode.TextDocumentChangeEvent) {
+        if (this.isStickyModeActive()) {
+            try {
+                if (event.contentChanges.length) {
+
+                    if (this.ignoreNextEdit) {
+                        this.ignoreNextEdit = false;
+                        return;
+                    }
+                    let font = this.getCurFontAttr();
+                    this.edits.push(...event.contentChanges);
+                    this.formatEdit(font, event.document);
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        if (event.reason) {
+            Stylizer.applyRules();
+        }
+    }
+
 }
 
 const formatter = new Formatter();

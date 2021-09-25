@@ -18,40 +18,84 @@
 		"commands": [
 			{
 				"command": "commentFormatter.bold",
-				"title": "𝗕𝗼𝗹𝗱 Selection",
+				"title": "Bold (𝗕𝗼𝗹𝗱)",
 				"icon": {
-					"dark": "resource/icon/bold_dark.png",
-					"light": "resource/icon/bold_light.png"
+					"dark": "resource/icon/dark/bold_dark.png",
+					"light": "resource/icon/light/bold_light.png"
+				}
+			},
+			{
+				"command": "commentFormatter.boldOff",
+				"title": "Bold (𝗕𝗼𝗹𝗱)",
+				"icon": {
+					"dark": "resource/icon/dark/bold_dark_active.png",
+					"light": "resource/icon/light/bold_light_active.png"
 				}
 			},
 			{
 				"command": "commentFormatter.italic",
-				"title": "𝘐𝘵𝘢𝘭𝘪𝘤 Selection",
+				"title": "Italic (𝘐𝘵𝘢𝘭𝘪𝘤)",
 				"icon": {
-					"dark": "resource/icon/italic_dark.png",
-					"light": "resource/icon/italic_light.png"
+					"dark": "resource/icon/dark/italic_dark.png",
+					"light": "resource/icon/light/italic_light.png"
+				}
+			},
+			{
+				"command": "commentFormatter.italicOff",
+				"title": "Italic (𝘐𝘵𝘢𝘭𝘪𝘤)",
+				"icon": {
+					"dark": "resource/icon/dark/italic_dark_active.png",
+					"light": "resource/icon/light/italic_light_active.png"
 				}
 			},
 			{
 				"command": "commentFormatter.outline",
-				"title": "𝕆𝕦𝕥𝕝𝕚𝕟𝕖 Selection",
+				"title": "Outline (𝕆𝕦𝕥𝕝𝕚𝕟𝕖)",
 				"icon": {
-					"dark": "resource/icon/outline_dark.png",
-					"light": "resource/icon/outline_light.png"
+					"dark": "resource/icon/dark/outline_dark.png",
+					"light": "resource/icon/light/outline_light.png"
+				}
+			},
+			{
+				"command": "commentFormatter.outlineOff",
+				"title": "Outline (𝕆𝕦𝕥𝕝𝕚𝕟𝕖)",
+				"icon": {
+					"dark": "resource/icon/dark/outline_dark_active.png",
+					"light": "resource/icon/light/outline_light_active.png"
 				}
 			},
 			{
 				"command": "commentFormatter.underline",
-				"title": "U͟n͟d͟e͟r͟l͟i͟n͟e Selection",
+				"title": "Underline (U͟n͟d͟e͟r͟l͟i͟n͟e)",
 				"icon": {
-					"dark": "resource/icon/underline_dark.png",
-					"light": "resource/icon/underline_light.png"
+					"dark": "resource/icon/dark/underline_dark.png",
+					"light": "resource/icon/light/underline_light.png"
+				}
+			},
+			{
+				"command": "commentFormatter.underlineOff",
+				"title": "Underline (U͟n͟d͟e͟r͟l͟i͟n͟e)",
+				"icon": {
+					"dark": "resource/icon/dark/underline_dark_active.png",
+					"light": "resource/icon/light/underline_light_active.png"
 				}
 			},
 			{
 				"command": "commentFormatter.superscript",
-				"title": "ˢᵘᵖᵉʳ-ˢᶜʳᶦᵖᵗ Selection"
+				"title": "Superscipt (ˢᵘᵖᵉʳ-ˢᶜʳᶦᵖᵗ)",
+				"icon": {
+					"dark": "resource/icon/dark/superscript_dark.png",
+					"light": "resource/icon/light/superscript_light.png"
+				}
 			},
+						{
+							"command": "commentFormatter.superscriptOff",
+							"title": "Superscipt (ˢᵘᵖᵉʳ-ˢᶜʳᶦᵖᵗ)",
+							"icon": {
+								"dark": "resource/icon/dark/superscript_dark_active.png",
+								"light": "resource/icon/light/superscript_light_active.png"
+							}
+						},
 			{
 				"command": "commentFormatter.dummy",
 				"title": "( Please select one word or more )"
@@ -67,6 +111,11 @@
 			{
 				"command": "commentFormatter.stylizeDoc",
 				"title": "Stylize Document"
+			},
+			{
+				"command": "commentFormatter.colorDefault",
+				"title": "DEFAULT",
+				"icon": "resource/icon/colors.png"
 			},
 			{
 				"command": "commentFormatter.colorRed",
@@ -119,40 +168,125 @@
 		"submenus": [
 			{
 				"id": "commentFormatter.editor.context",
-				"label": "Format Selection",
-				"icon": "./resource/icon/colors.png"
+				"label": "Format Selection"
 			},
 			{
 				"id": "commentFormatter.menu.colors",
 				"label": "Colors",
-				"icon": "./resource/icon/colors.png"
+				"icon": {
+					"dark": "resource/icon/colors.png",
+					"light": "resource/icon/colors.png"
+				}
+			},
+			{
+				"id": "commentFormatter.menu.colorBlue",
+				"label": "Colors",
+				"icon": {
+					"dark": "resource/icon/blue.png",
+					"light": "resource/icon/blue.png"
+				}
+			},
+			{
+				"id": "commentFormatter.menu.colorRed",
+				"label": "Colors",
+				"icon": {
+					"dark": "resource/icon/red.png",
+					"light": "resource/icon/red.png"
+				}
+			},
+			{
+				"id": "commentFormatter.menu.colorGreen",
+				"label": "Colors",
+				"icon": {
+					"dark": "resource/icon/green.png",
+					"light": "resource/icon/green.png"
+				}
+			},
+			{
+				"id": "commentFormatter.menu.colorYellow",
+				"label": "Colors",
+				"icon": {
+					"dark": "resource/icon/yellow.png",
+					"light": "resource/icon/yellow.png"
+				}
 			}
 		],
 		"menus": {
 			"editor/title": [
 				{
 					"submenu": "commentFormatter.menu.colors",
-					"group": "navigation@1"
+					"group": "navigation@1",
+					"when": "!commentFormatter.color"
 				},
 				{
-					"command": "commentFormatter.colorRed",
-					"group": "navigation@1"
+					"submenu": "commentFormatter.menu.colorRed",
+					"group": "navigation@1",
+					"when": "commentFormatter.color=='Red'"
+				},
+				{
+					"submenu": "commentFormatter.menu.colorBlue",
+					"group": "navigation@1",
+					"when": "commentFormatter.color=='Blue'"
+				},
+				{
+					"submenu": "commentFormatter.menu.colorGreen",
+					"group": "navigation@1",
+					"when": "commentFormatter.color=='Green'"
+				},
+				{
+					"submenu": "commentFormatter.menu.colorYellow",
+					"group": "navigation@1",
+					"when": "commentFormatter.color=='Yellow'"
 				},
 				{
 					"command": "commentFormatter.bold",
-					"group": "navigation@2"
+					"group": "navigation@2",
+					"when": "!commentFormatter.boldON"
+				},
+				{
+					"command": "commentFormatter.boldOff",
+					"group": "navigation@2",
+					"when": "commentFormatter.boldON"
 				},
 				{
 					"command": "commentFormatter.italic",
-					"group": "navigation@3"
+					"group": "navigation@3",
+					"when": "!commentFormatter.italicON"
+				},
+				{
+					"command": "commentFormatter.italicOff",
+					"group": "navigation@3",
+					"when": "commentFormatter.italicON"
 				},
 				{
 					"command": "commentFormatter.underline",
-					"group": "navigation@3"
+					"group": "navigation@3",
+					"when": "!commentFormatter.underlineON"
+				},
+				{
+					"command": "commentFormatter.underlineOff",
+					"group": "navigation@3",
+					"when": "commentFormatter.underlineON"
+				},				
+				{
+					"command": "commentFormatter.outlineOff",
+					"group": "navigation@4",
+					"when": "commentFormatter.outlineON"
 				},
 				{
 					"command": "commentFormatter.outline",
-					"group": "navigation@4"
+					"group": "navigation@4",
+					"when": "!commentFormatter.outlineON"
+				},
+				{
+					"command": "commentFormatter.superscript",
+					"group": "navigation@5",
+					"when": "!commentFormatter.superscriptON"
+				},
+				{
+					"command": "commentFormatter.superscriptOff",
+					"group": "navigation@5",
+					"when": "commentFormatter.superscriptON"
 				}
 			],
 			"commandPalette": [
@@ -168,16 +302,92 @@
 			],
 			"commentFormatter.menu.colors": [
 				{
-					"command": "commentFormatter.colorRed"
+					"command": "commentFormatter.colorRed",
+					"group": "navigation@1"
 				},
 				{
-					"command": "commentFormatter.colorBlue"
+					"command": "commentFormatter.colorBlue",
+					"group": "navigation@2"
 				},
 				{
-					"command": "commentFormatter.colorGreen"
+					"command": "commentFormatter.colorGreen",
+					"group": "navigation@3"
 				},
 				{
-					"command": "commentFormatter.colorYellow"
+					"command": "commentFormatter.colorYellow",
+					"group": "navigation@4"
+				}
+			],
+			"commentFormatter.menu.colorRed": [
+				{
+					"command": "commentFormatter.colorDefault",
+					"group": "navigation@1"
+				},
+				{
+					"command": "commentFormatter.colorBlue",
+					"group": "navigation@2"
+				},
+				{
+					"command": "commentFormatter.colorGreen",
+					"group": "navigation@3"
+				},
+				{
+					"command": "commentFormatter.colorYellow",
+					"group": "navigation@4"
+				}
+			],
+			"commentFormatter.menu.colorBlue": [
+				{
+					"command": "commentFormatter.colorDefault",
+					"group": "navigation@1"
+				},
+				{
+					"command": "commentFormatter.colorRed",
+					"group": "navigation@2"
+				},
+				{
+					"command": "commentFormatter.colorGreen",
+					"group": "navigation@3"
+				},
+				{
+					"command": "commentFormatter.colorYellow",
+					"group": "navigation@4"
+				}
+			],
+			"commentFormatter.menu.colorGreen": [
+				{
+					"command": "commentFormatter.colorDefault",
+					"group": "navigation@1"
+				},
+				{
+					"command": "commentFormatter.colorRed",
+					"group": "navigation@2"
+				},
+				{
+					"command": "commentFormatter.colorBlue",
+					"group": "navigation@3"
+				},
+				{
+					"command": "commentFormatter.colorYellow",
+					"group": "navigation@4"
+				}
+			],
+			"commentFormatter.menu.colorYellow": [
+				{
+					"command": "commentFormatter.colorDefault",
+					"group": "navigation@1"
+				},
+				{
+					"command": "commentFormatter.colorRed",
+					"group": "navigation@2"
+				},
+				{
+					"command": "commentFormatter.colorBlue",
+					"group": "navigation@3"
+				},
+				{
+					"command": "commentFormatter.colorGreen",
+					"group": "navigation@4"
 				}
 			],
 			"commentFormatter.editor.context": [

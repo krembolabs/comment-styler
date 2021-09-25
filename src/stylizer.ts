@@ -1,10 +1,11 @@
-import { Color } from './types';
+import { Code, Color, ControlChars } from './types';
 import * as vscode from 'vscode';
 import { Rules } from './config';
 
 class Stylizer {
 
     myDecorations = new Map();
+    currentColor = Color.default;
 
     constructor() {
         this.init();
@@ -24,6 +25,11 @@ class Stylizer {
     }
 
     applyRules() {
+
+        if (this.myDecorations.size==0) {
+            return;
+        }
+
         this.clearDecorations();
         const editor = vscode.window.activeTextEditor;
 
@@ -31,15 +37,13 @@ class Stylizer {
             const document = editor.document;
             const text = document.getText();
 
-            let decorations=new Map();
+            let decorations = new Map();
 
 
             const rules = Object.keys(Rules);
             rules.forEach(rule => {
-                let types = this.myDecorations.get(rule);
-                const stylePerGroup = Rules[rule as keyof typeof Rules].stylePerGroup;
-
-                let rx = new RegExp(rule, "gu");
+                let types = this.myDecorations.get(rule);                
+                let rx = new RegExp(rule, "gus");
                 try {
                     let instances = text.matchAll(rx);
                     Array.from(instances, m => {
@@ -50,28 +54,20 @@ class Stylizer {
                             let startPos = document.positionAt(startIdx);
                             endIdx = startIdx + m[i].length;
                             let endPos = document.positionAt(endIdx);
-
-                            console.log(`Value ${m[i]} => ${stylePerGroup[i - 1]}`);
-
                             let range = new vscode.Range(startPos, endPos);
 
-
-                            let val=decorations.get(types[i-1])||[];
+                            let val = decorations.get(types[i - 1]) || [];
                             val.push(range);
-                            decorations.set(types[i-1],val);
-                            //editor.setDecorations(types[i - 1], [range]);
+                            decorations.set(types[i - 1], val);
 
                             startIdx = endIdx;
                         }
-
                     });
-
-
                 } catch (err) {
                     console.log(err);
                 }
             });
-            decorations.forEach((range,type)=>{
+            decorations.forEach((range, type) => {
                 editor.setDecorations(type, range);
             })
         }
@@ -87,41 +83,47 @@ class Stylizer {
         }
     }
 
+
     mark(color: Color) {
         const editor = vscode.window.activeTextEditor;
         if (editor) {
             const document = editor.document;
             const selection = editor.selection;
-            const text = document.getText(selection);
-
-            const RED   = "\u2062\u2063\u2062";
-            const GREEN = "\u2062\u2062\u2062";
-            const BLUE  = "\u2063\u2062\u2062";
-            const YELLOW = "\u2063\u2063\u2062";
-            const END = "\u2061";
-            
-            let c="";
-            switch (color){
-                case Color.red: c=RED; break;
-                case Color.blue: c = BLUE; break;
-                case Color.yellow: c = YELLOW; break;
-                case Color.green: c = GREEN; break;
+            let text = document.getText(selection);
+            if (!text) {                
+                vscode.window.showInformationMessage("Please select some text before performing this operation.");
+                return;
             }
-            const resultStr=c+text+END+c;
 
-            editor.edit(editBuilder => {
-                editBuilder.replace(selection, resultStr);
-            }).then(success => {
-                if (success) {
-                    this.applyRules();
-                }
-            });
-              
+            //vscode.commands.executeCommand('setContext', 'commentFormatter.color', color);
+
+            let c = "";
+            switch (color) {
+                case Color.red: c = Code.RED; break;
+                case Color.blue: c = Code.BLUE; break;
+                case Color.yellow: c = Code.YELLOW; break;
+                case Color.green: c = Code.GREEN; break;
+                case Color.default: c = ""; break;
+            }
+
+            // First, clear existing control characters from the text
+            let re=RegExp("["+ControlChars+"]","ug");
+            text = text.replace(re, '');
             
+            const resultStr = (c) ? Code.END + c + text + Code.END : text;
+            try {
+                editor.edit(editBuilder => {
+                    editBuilder.replace(selection, resultStr);
+                }).then(success => {
+                    if (success) {
+                        this.applyRules();
+                    }
+                });
+            } catch (err) {
+                console.log(err);
+            }
         }
-
     }
-
 }
 
 const stylizer = new Stylizer();
