@@ -34,7 +34,9 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-Spell checks may not identify unicode characters correctly
+► If you encounter slowness while typing try disabling other extensions, especially colorizing ones like "𝘉𝘳𝘢𝘤𝘬𝘦𝘵 𝘗𝘢𝘪𝘳 𝘊𝘰𝘭𝘰𝘳𝘪𝘻𝘦𝘳".
+
+► Spell checks may not identify unicode characters correctly
 For cSpell users, add the following setting:
 <pre>
 "cSpell.ignoreRegExpList": [

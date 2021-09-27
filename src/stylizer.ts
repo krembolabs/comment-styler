@@ -1,4 +1,4 @@
-import { Code, Color, ControlChars } from './types';
+import { Code, Color, ControlChars, ControlColors, ControlSizes, Size } from './types';
 import * as vscode from 'vscode';
 import { Rules } from './config';
 
@@ -83,8 +83,16 @@ class Stylizer {
         }
     }
 
+    markSize(size:Size) {
+        this.mark(null, size);
+    }
 
-    mark(color: Color) {
+    markColor(color:Color) {
+        this.mark(color,null);
+    }
+
+    mark(color: Color|null,size: Size|null) {
+
         const editor = vscode.window.activeTextEditor;
         if (editor) {
             const document = editor.document;
@@ -103,14 +111,37 @@ class Stylizer {
                 case Color.blue: c = Code.BLUE; break;
                 case Color.yellow: c = Code.YELLOW; break;
                 case Color.green: c = Code.GREEN; break;
+                case Color.orange: c = Code.ORANGE; break;
+                case Color.purple: c = Code.PURPLE; break;
+                case Color.lightblue: c = Code.LIGHTBLUE; break;
                 case Color.default: c = ""; break;
             }
 
+            let s = "";
+            switch (size) {
+                case Size.sizeX1 : s = ""; break;
+                case Size.sizeX2 : s = Code.SIZEx2; break;
+                case Size.sizeX05: s = Code.SIZEx05; break;
+                case Size.sizeX075: s = Code.SIZEx075; break;
+                case Size.sizeX15: s = Code.SIZEx15; break;
+            }
+
             // First, clear existing control characters from the text
-            let re=RegExp("["+ControlChars+"]","ug");
-            text = text.replace(re, '');
+            if (c) {
+                let re = RegExp("[" + ControlColors+"]","ug");
+                text = text.replace(re, '');
+            }
+            if (s) {
+                let re = RegExp("[" + ControlSizes + "]", "ug");
+                text = text.replace(re, '');
+            }
+
+            let prefix = (c)? Code.END_COLOR+c:"";
+            prefix+=(s)?Code.END_SIZE+s:"";
+            let suffix = (c)? Code.END_COLOR:"";
+            suffix+=(s)?Code.END_SIZE:"";
             
-            const resultStr = (c) ? Code.END + c + text + Code.END : text;
+            const resultStr = prefix + text + suffix;
             try {
                 editor.edit(editBuilder => {
                     editBuilder.replace(selection, resultStr);

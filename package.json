@@ -88,14 +88,14 @@
 					"light": "resource/icon/light/superscript_light.png"
 				}
 			},
-						{
-							"command": "commentFormatter.superscriptOff",
-							"title": "Superscipt (ˢᵘᵖᵉʳ-ˢᶜʳᶦᵖᵗ)",
-							"icon": {
-								"dark": "resource/icon/dark/superscript_dark_active.png",
-								"light": "resource/icon/light/superscript_light_active.png"
-							}
-						},
+			{
+				"command": "commentFormatter.superscriptOff",
+				"title": "Superscipt (ˢᵘᵖᵉʳ-ˢᶜʳᶦᵖᵗ)",
+				"icon": {
+					"dark": "resource/icon/dark/superscript_dark_active.png",
+					"light": "resource/icon/light/superscript_light_active.png"
+				}
+			},
 			{
 				"command": "commentFormatter.dummy",
 				"title": "( Please select one word or more )"
@@ -118,6 +118,26 @@
 				"icon": "resource/icon/colors.png"
 			},
 			{
+				"command": "commentFormatter.sizeX1",
+				"title": "Size 100%"
+			},
+			{
+				"command": "commentFormatter.sizeX15",
+				"title": "Size 150%"
+			},
+			{
+				"command": "commentFormatter.sizeX2",
+				"title": "Size 200%"
+			},
+			{
+				"command": "commentFormatter.sizeX075",
+				"title": "Size 75%"
+			},
+			{
+				"command": "commentFormatter.sizeX05",
+				"title": "Size 50%"
+			},
+			{
 				"command": "commentFormatter.colorRed",
 				"title": "RED",
 				"icon": "resource/icon/red.png"
@@ -136,6 +156,21 @@
 				"command": "commentFormatter.colorYellow",
 				"title": "YELLOW",
 				"icon": "resource/icon/yellow.png"
+			},
+			{
+				"command": "commentFormatter.colorOrange",
+				"title": "ORANGE",
+				"icon": "resource/icon/blue.png"
+			},
+			{
+				"command": "commentFormatter.colorPurple",
+				"title": "PURPLE",
+				"icon": "resource/icon/blue.png"
+			},
+			{
+				"command": "commentFormatter.colorLightBlue",
+				"title": "LIGHT BLUE",
+				"icon": "resource/icon/lightblue.png"
 			}
 		],
 		"keybindings": [
@@ -179,35 +214,11 @@
 				}
 			},
 			{
-				"id": "commentFormatter.menu.colorBlue",
-				"label": "Colors",
+				"id": "commentFormatter.menu.size",
+				"label": "Font size",
 				"icon": {
-					"dark": "resource/icon/blue.png",
-					"light": "resource/icon/blue.png"
-				}
-			},
-			{
-				"id": "commentFormatter.menu.colorRed",
-				"label": "Colors",
-				"icon": {
-					"dark": "resource/icon/red.png",
-					"light": "resource/icon/red.png"
-				}
-			},
-			{
-				"id": "commentFormatter.menu.colorGreen",
-				"label": "Colors",
-				"icon": {
-					"dark": "resource/icon/green.png",
-					"light": "resource/icon/green.png"
-				}
-			},
-			{
-				"id": "commentFormatter.menu.colorYellow",
-				"label": "Colors",
-				"icon": {
-					"dark": "resource/icon/yellow.png",
-					"light": "resource/icon/yellow.png"
+					"dark": "resource/icon/dark/sizes_dark.png",
+					"light": "resource/icon/light/sizes_light.png"
 				}
 			}
 		],
@@ -217,26 +228,6 @@
 					"submenu": "commentFormatter.menu.colors",
 					"group": "navigation@1",
 					"when": "!commentFormatter.color"
-				},
-				{
-					"submenu": "commentFormatter.menu.colorRed",
-					"group": "navigation@1",
-					"when": "commentFormatter.color=='Red'"
-				},
-				{
-					"submenu": "commentFormatter.menu.colorBlue",
-					"group": "navigation@1",
-					"when": "commentFormatter.color=='Blue'"
-				},
-				{
-					"submenu": "commentFormatter.menu.colorGreen",
-					"group": "navigation@1",
-					"when": "commentFormatter.color=='Green'"
-				},
-				{
-					"submenu": "commentFormatter.menu.colorYellow",
-					"group": "navigation@1",
-					"when": "commentFormatter.color=='Yellow'"
 				},
 				{
 					"command": "commentFormatter.bold",
@@ -267,7 +258,7 @@
 					"command": "commentFormatter.underlineOff",
 					"group": "navigation@3",
 					"when": "commentFormatter.underlineON"
-				},				
+				},
 				{
 					"command": "commentFormatter.outlineOff",
 					"group": "navigation@4",
@@ -287,6 +278,10 @@
 					"command": "commentFormatter.superscriptOff",
 					"group": "navigation@5",
 					"when": "commentFormatter.superscriptON"
+				},
+				{
+					"submenu": "commentFormatter.menu.size",
+					"group": "navigation@6"
 				}
 			],
 			"commandPalette": [
@@ -316,78 +311,40 @@
 				{
 					"command": "commentFormatter.colorYellow",
 					"group": "navigation@4"
+				},
+				{
+					"command": "commentFormatter.colorOrange",
+					"group": "navigation@5"
+				},
+				{
+					"command": "commentFormatter.colorPurple",
+					"group": "navigation@6"
+				},
+				{
+					"command": "commentFormatter.colorLightBlue",
+					"group": "navigation@7"
 				}
 			],
-			"commentFormatter.menu.colorRed": [
+			"commentFormatter.menu.size": [
 				{
-					"command": "commentFormatter.colorDefault",
+					"command": "commentFormatter.sizeX2",
 					"group": "navigation@1"
 				},
 				{
-					"command": "commentFormatter.colorBlue",
+					"command": "commentFormatter.sizeX15",
 					"group": "navigation@2"
 				},
 				{
-					"command": "commentFormatter.colorGreen",
+					"command": "commentFormatter.sizeX1",
 					"group": "navigation@3"
 				},
 				{
-					"command": "commentFormatter.colorYellow",
+					"command": "commentFormatter.sizeX075",
 					"group": "navigation@4"
-				}
-			],
-			"commentFormatter.menu.colorBlue": [
-				{
-					"command": "commentFormatter.colorDefault",
-					"group": "navigation@1"
 				},
 				{
-					"command": "commentFormatter.colorRed",
-					"group": "navigation@2"
-				},
-				{
-					"command": "commentFormatter.colorGreen",
-					"group": "navigation@3"
-				},
-				{
-					"command": "commentFormatter.colorYellow",
-					"group": "navigation@4"
-				}
-			],
-			"commentFormatter.menu.colorGreen": [
-				{
-					"command": "commentFormatter.colorDefault",
-					"group": "navigation@1"
-				},
-				{
-					"command": "commentFormatter.colorRed",
-					"group": "navigation@2"
-				},
-				{
-					"command": "commentFormatter.colorBlue",
-					"group": "navigation@3"
-				},
-				{
-					"command": "commentFormatter.colorYellow",
-					"group": "navigation@4"
-				}
-			],
-			"commentFormatter.menu.colorYellow": [
-				{
-					"command": "commentFormatter.colorDefault",
-					"group": "navigation@1"
-				},
-				{
-					"command": "commentFormatter.colorRed",
-					"group": "navigation@2"
-				},
-				{
-					"command": "commentFormatter.colorBlue",
-					"group": "navigation@3"
-				},
-				{
-					"command": "commentFormatter.colorGreen",
-					"group": "navigation@4"
+					"command": "commentFormatter.sizeX05",
+					"group": "navigation@5"
 				}
 			],
 			"commentFormatter.editor.context": [
