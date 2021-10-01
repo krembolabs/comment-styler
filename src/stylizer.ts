@@ -14,14 +14,25 @@ class Stylizer {
 
         const rules = Object.keys(Rules);
         rules.forEach(rule => {
-            let types: vscode.TextEditorDecorationType[] = [];
+            let types: (vscode.TextEditorDecorationType|null)[] = [];
             const stylePerGroup = Rules[rule as keyof typeof Rules].stylePerGroup;
             stylePerGroup.forEach(style => {
-                let type = vscode.window.createTextEditorDecorationType(style as vscode.DecorationRenderOptions);
+                let type;
+                if (Object.keys(style).length==0) {
+                    type = null;
+                } else {
+                    style = this.addDefaultStyles(style);
+                    type = vscode.window.createTextEditorDecorationType(style as vscode.DecorationRenderOptions);
+                }
                 types.push(type);
             });
             this.myDecorations.set(rule, types);
         });
+    }
+
+    addDefaultStyles(style:any):any {
+        style.rangeBehavior = 1
+        return style;
     }
 
     applyRules() {
@@ -36,9 +47,7 @@ class Stylizer {
         if (editor) {
             const document = editor.document;
             const text = document.getText();
-
             let decorations = new Map();
-
 
             const rules = Object.keys(Rules);
             rules.forEach(rule => {
@@ -68,7 +77,9 @@ class Stylizer {
                 }
             });
             decorations.forEach((range, type) => {
-                editor.setDecorations(type, range);
+                if (type) {
+                    editor.setDecorations(type, range);
+                }
             })
         }
     }
@@ -77,7 +88,9 @@ class Stylizer {
         if (editor) {
             this.myDecorations.forEach((types, rule) => {
                 types.forEach((type: any) => {
-                    editor.setDecorations(type, []);
+                    if (type) {
+                        editor.setDecorations(type, []);
+                    }
                 });
             });
         }
@@ -103,35 +116,34 @@ class Stylizer {
                 return;
             }
 
-            //vscode.commands.executeCommand('setContext', 'commentFormatter.color', color);
-
             let c = "";
-            switch (color) {
+            switch (color) {                
                 case Color.red: c = Code.RED; break;
                 case Color.blue: c = Code.BLUE; break;
                 case Color.yellow: c = Code.YELLOW; break;
                 case Color.green: c = Code.GREEN; break;
                 case Color.orange: c = Code.ORANGE; break;
                 case Color.purple: c = Code.PURPLE; break;
-                case Color.lightblue: c = Code.LIGHTBLUE; break;
+                case Color.cyan: c = Code.CYAN; break;
                 case Color.default: c = ""; break;
             }
 
             let s = "";
             switch (size) {
-                case Size.sizeX1 : s = ""; break;
-                case Size.sizeX2 : s = Code.SIZEx2; break;
-                case Size.sizeX05: s = Code.SIZEx05; break;
-                case Size.sizeX075: s = Code.SIZEx075; break;
-                case Size.sizeX15: s = Code.SIZEx15; break;
+                case Size.size100 : s = ""; break;
+                case Size.size200 : s = Code.size200; break;
+                case Size.size50: s = Code.size50; break;
+                case Size.size75: s = Code.size75; break;
+                case Size.size150: s = Code.size150; break;
+                case Size.size125: s = Code.size125; break;
             }
 
             // First, clear existing control characters from the text
-            if (c) {
+            if (color) {
                 let re = RegExp("[" + ControlColors+"]","ug");
                 text = text.replace(re, '');
             }
-            if (s) {
+            if (size) {
                 let re = RegExp("[" + ControlSizes + "]", "ug");
                 text = text.replace(re, '');
             }

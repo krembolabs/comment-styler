@@ -1,6 +1,6 @@
 {
-	"name": "comment-formatter",
-	"displayName": "Comment Formatter",
+	"name": "comment-styler",
+	"displayName": "Comment Styler",
 	"description": "Add format to comments",
 	"publisher": "KremboLabs",
 	"version": "0.0.1",
@@ -10,6 +10,7 @@
 	"categories": [
 		"Other"
 	],
+	"icon": "resource/logo/logo.png",
 	"activationEvents": [
 		"*"
 	],
@@ -17,7 +18,23 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "commentFormatter.bold",
+				"command": "commentStyler.openDrawer",
+				"title": "Open Styles",
+				"icon": {
+					"dark": "resource/icon/dark/drawer_open_dark.png",
+					"light": "resource/icon/light/drawer_open_light.png"
+				}
+			},
+			{
+				"command": "commentStyler.closeDrawer",
+				"title": "Close Styles",
+				"icon": {
+					"dark": "resource/icon/dark/drawer_close_dark.png",
+					"light": "resource/icon/light/drawer_close_light.png"
+				}
+			},
+			{
+				"command": "commentStyler.bold",
 				"title": "Bold (𝗕𝗼𝗹𝗱)",
 				"icon": {
 					"dark": "resource/icon/dark/bold_dark.png",
@@ -25,7 +42,7 @@
 				}
 			},
 			{
-				"command": "commentFormatter.boldOff",
+				"command": "commentStyler.boldOff",
 				"title": "Bold (𝗕𝗼𝗹𝗱)",
 				"icon": {
 					"dark": "resource/icon/dark/bold_dark_active.png",
@@ -33,7 +50,7 @@
 				}
 			},
 			{
-				"command": "commentFormatter.italic",
+				"command": "commentStyler.italic",
 				"title": "Italic (𝘐𝘵𝘢𝘭𝘪𝘤)",
 				"icon": {
 					"dark": "resource/icon/dark/italic_dark.png",
@@ -41,7 +58,7 @@
 				}
 			},
 			{
-				"command": "commentFormatter.italicOff",
+				"command": "commentStyler.italicOff",
 				"title": "Italic (𝘐𝘵𝘢𝘭𝘪𝘤)",
 				"icon": {
 					"dark": "resource/icon/dark/italic_dark_active.png",
@@ -49,7 +66,7 @@
 				}
 			},
 			{
-				"command": "commentFormatter.outline",
+				"command": "commentStyler.outline",
 				"title": "Outline (𝕆𝕦𝕥𝕝𝕚𝕟𝕖)",
 				"icon": {
 					"dark": "resource/icon/dark/outline_dark.png",
@@ -57,7 +74,7 @@
 				}
 			},
 			{
-				"command": "commentFormatter.outlineOff",
+				"command": "commentStyler.outlineOff",
 				"title": "Outline (𝕆𝕦𝕥𝕝𝕚𝕟𝕖)",
 				"icon": {
 					"dark": "resource/icon/dark/outline_dark_active.png",
@@ -65,7 +82,7 @@
 				}
 			},
 			{
-				"command": "commentFormatter.underline",
+				"command": "commentStyler.underline",
 				"title": "Underline (U͟n͟d͟e͟r͟l͟i͟n͟e)",
 				"icon": {
 					"dark": "resource/icon/dark/underline_dark.png",
@@ -73,7 +90,7 @@
 				}
 			},
 			{
-				"command": "commentFormatter.underlineOff",
+				"command": "commentStyler.underlineOff",
 				"title": "Underline (U͟n͟d͟e͟r͟l͟i͟n͟e)",
 				"icon": {
 					"dark": "resource/icon/dark/underline_dark_active.png",
@@ -81,7 +98,7 @@
 				}
 			},
 			{
-				"command": "commentFormatter.superscript",
+				"command": "commentStyler.superscript",
 				"title": "Superscipt (ˢᵘᵖᵉʳ-ˢᶜʳᶦᵖᵗ)",
 				"icon": {
 					"dark": "resource/icon/dark/superscript_dark.png",
@@ -89,7 +106,7 @@
 				}
 			},
 			{
-				"command": "commentFormatter.superscriptOff",
+				"command": "commentStyler.superscriptOff",
 				"title": "Superscipt (ˢᵘᵖᵉʳ-ˢᶜʳᶦᵖᵗ)",
 				"icon": {
 					"dark": "resource/icon/dark/superscript_dark_active.png",
@@ -97,116 +114,117 @@
 				}
 			},
 			{
-				"command": "commentFormatter.dummy",
+				"command": "commentStyler.dummy",
 				"title": "( Please select one word or more )"
 			},
 			{
-				"command": "commentFormatter.bullet",
+				"command": "commentStyler.bullet",
 				"title": "Place bullet point (•)"
 			},
 			{
-				"command": "commentFormatter.bulletTriangle",
+				"command": "commentStyler.bulletTriangle",
 				"title": "Place triangle bullet (►)"
 			},
 			{
-				"command": "commentFormatter.stylizeDoc",
+				"command": "commentStyler.stylizeDoc",
 				"title": "Stylize Document"
 			},
 			{
-				"command": "commentFormatter.colorDefault",
+				"command": "commentStyler.colorDefault",
 				"title": "DEFAULT",
 				"icon": "resource/icon/colors.png"
 			},
 			{
-				"command": "commentFormatter.sizeX1",
+				"command": "commentStyler.size100",
 				"title": "Size 100%"
 			},
 			{
-				"command": "commentFormatter.sizeX15",
+				"command": "commentStyler.size125",
+				"title": "Size 125%"
+			},
+			{
+				"command": "commentStyler.size150",
 				"title": "Size 150%"
 			},
 			{
-				"command": "commentFormatter.sizeX2",
+				"command": "commentStyler.size200",
 				"title": "Size 200%"
 			},
 			{
-				"command": "commentFormatter.sizeX075",
+				"command": "commentStyler.size75",
 				"title": "Size 75%"
 			},
 			{
-				"command": "commentFormatter.sizeX05",
+				"command": "commentStyler.size50",
 				"title": "Size 50%"
 			},
 			{
-				"command": "commentFormatter.colorRed",
-				"title": "RED",
-				"icon": "resource/icon/red.png"
+				"command": "commentStyler.colorRed",
+				"title": "RED"
 			},
 			{
-				"command": "commentFormatter.colorBlue",
-				"title": "BLUE",
-				"icon": "resource/icon/blue.png"
+				"command": "commentStyler.colorBlue",
+				"title": "BLUE"
 			},
 			{
-				"command": "commentFormatter.colorGreen",
-				"title": "GREEN",
-				"icon": "resource/icon/green.png"
+				"command": "commentStyler.colorGreen",
+				"title": "GREEN"
 			},
 			{
-				"command": "commentFormatter.colorYellow",
-				"title": "YELLOW",
-				"icon": "resource/icon/yellow.png"
+				"command": "commentStyler.colorYellow",
+				"title": "YELLOW"
 			},
 			{
-				"command": "commentFormatter.colorOrange",
-				"title": "ORANGE",
-				"icon": "resource/icon/blue.png"
+				"command": "commentStyler.colorOrange",
+				"title": "ORANGE"
 			},
 			{
-				"command": "commentFormatter.colorPurple",
-				"title": "PURPLE",
-				"icon": "resource/icon/blue.png"
+				"command": "commentStyler.colorPurple",
+				"title": "PURPLE"
 			},
 			{
-				"command": "commentFormatter.colorLightBlue",
-				"title": "LIGHT BLUE",
-				"icon": "resource/icon/lightblue.png"
+				"command": "commentStyler.colorCyan",
+				"title": "CYAN"
+			},
+			{
+				"command": "commentStyler.colorDefault",
+				"title": "(DEFAULT)"
 			}
 		],
 		"keybindings": [
 			{
-				"command": "commentFormatter.bold",
+				"command": "commentStyler.bold",
 				"key": "alt+d",
 				"when": "editorTextFocus && editorHasSelection"
 			},
 			{
-				"command": "commentFormatter.italic",
+				"command": "commentStyler.italic",
 				"key": "alt+i",
 				"when": "editorTextFocus && editorHasSelection"
 			},
 			{
-				"command": "commentFormatter.underline",
+				"command": "commentStyler.underline",
 				"key": "alt+u",
 				"when": "editorTextFocus && editorHasSelection"
 			},
 			{
-				"command": "commentFormatter.outline",
+				"command": "commentStyler.outline",
 				"key": "alt+o",
 				"when": "editorTextFocus && editorHasSelection"
 			},
 			{
-				"command": "commentFormatter.bullet",
+				"command": "commentStyler.bullet",
 				"key": "alt+x",
 				"when": "editorTextFocus"
 			}
 		],
 		"submenus": [
 			{
-				"id": "commentFormatter.editor.context",
+				"id": "commentStyler.editor.context",
 				"label": "Format Selection"
 			},
 			{
-				"id": "commentFormatter.menu.colors",
+				"id": "commentStyler.menu.colors",
 				"label": "Colors",
 				"icon": {
 					"dark": "resource/icon/colors.png",
@@ -214,7 +232,7 @@
 				}
 			},
 			{
-				"id": "commentFormatter.menu.size",
+				"id": "commentStyler.menu.size",
 				"label": "Font size",
 				"icon": {
 					"dark": "resource/icon/dark/sizes_dark.png",
@@ -225,166 +243,180 @@
 		"menus": {
 			"editor/title": [
 				{
-					"submenu": "commentFormatter.menu.colors",
+					"command": "commentStyler.openDrawer",
 					"group": "navigation@1",
-					"when": "!commentFormatter.color"
+					"when": "!commentStyler.drawerOpen"
 				},
 				{
-					"command": "commentFormatter.bold",
+					"command": "commentStyler.closeDrawer",
+					"group": "navigation@1",
+					"when": "commentStyler.drawerOpen"
+				},
+				{
+					"submenu": "commentStyler.menu.colors",
+					"group": "navigation@1",
+					"when": "commentStyler.drawerOpen"
+				},
+				{
+					"command": "commentStyler.bold",
 					"group": "navigation@2",
-					"when": "!commentFormatter.boldON"
+					"when": "!commentStyler.boldON&&commentStyler.drawerOpen"
 				},
 				{
-					"command": "commentFormatter.boldOff",
+					"command": "commentStyler.boldOff",
 					"group": "navigation@2",
-					"when": "commentFormatter.boldON"
+					"when": "commentStyler.boldON&&commentStyler.drawerOpen"
 				},
 				{
-					"command": "commentFormatter.italic",
+					"command": "commentStyler.italic",
 					"group": "navigation@3",
-					"when": "!commentFormatter.italicON"
+					"when": "!commentStyler.italicON&&commentStyler.drawerOpen"
 				},
 				{
-					"command": "commentFormatter.italicOff",
+					"command": "commentStyler.italicOff",
 					"group": "navigation@3",
-					"when": "commentFormatter.italicON"
+					"when": "commentStyler.italicON&&commentStyler.drawerOpen"
 				},
 				{
-					"command": "commentFormatter.underline",
+					"command": "commentStyler.underline",
 					"group": "navigation@3",
-					"when": "!commentFormatter.underlineON"
+					"when": "commentStyler.drawerOpen"
 				},
 				{
-					"command": "commentFormatter.underlineOff",
-					"group": "navigation@3",
-					"when": "commentFormatter.underlineON"
-				},
-				{
-					"command": "commentFormatter.outlineOff",
+					"command": "commentStyler.outlineOff",
 					"group": "navigation@4",
-					"when": "commentFormatter.outlineON"
+					"when": "commentStyler.outlineON&&commentStyler.drawerOpen"
 				},
 				{
-					"command": "commentFormatter.outline",
+					"command": "commentStyler.outline",
 					"group": "navigation@4",
-					"when": "!commentFormatter.outlineON"
+					"when": "!commentStyler.outlineON&&commentStyler.drawerOpen"
 				},
 				{
-					"command": "commentFormatter.superscript",
+					"command": "commentStyler.superscript",
 					"group": "navigation@5",
-					"when": "!commentFormatter.superscriptON"
+					"when": "!commentStyler.superscriptON&&commentStyler.drawerOpen"
 				},
 				{
-					"command": "commentFormatter.superscriptOff",
+					"command": "commentStyler.superscriptOff",
 					"group": "navigation@5",
-					"when": "commentFormatter.superscriptON"
+					"when": "commentStyler.superscriptON&&commentStyler.drawerOpen"
 				},
 				{
-					"submenu": "commentFormatter.menu.size",
-					"group": "navigation@6"
+					"submenu": "commentStyler.menu.size",
+					"group": "navigation@6",
+					"when": "commentStyler.drawerOpen"
 				}
 			],
 			"commandPalette": [
 				{
-					"command": "commentFormatter.bulletTriangle"
+					"command": "commentStyler.bulletTriangle"
 				}
 			],
 			"editor/context": [
 				{
-					"submenu": "commentFormatter.editor.context",
-					"group": "Comment Formatter"
+					"submenu": "commentStyler.editor.context",
+					"group": "Comment Styler"
 				}
 			],
-			"commentFormatter.menu.colors": [
+			"commentStyler.menu.colors": [
 				{
-					"command": "commentFormatter.colorRed",
+					"command": "commentStyler.colorRed",
 					"group": "navigation@1"
 				},
 				{
-					"command": "commentFormatter.colorBlue",
+					"command": "commentStyler.colorBlue",
 					"group": "navigation@2"
 				},
 				{
-					"command": "commentFormatter.colorGreen",
+					"command": "commentStyler.colorGreen",
 					"group": "navigation@3"
 				},
 				{
-					"command": "commentFormatter.colorYellow",
+					"command": "commentStyler.colorYellow",
 					"group": "navigation@4"
 				},
 				{
-					"command": "commentFormatter.colorOrange",
+					"command": "commentStyler.colorOrange",
 					"group": "navigation@5"
 				},
 				{
-					"command": "commentFormatter.colorPurple",
+					"command": "commentStyler.colorPurple",
 					"group": "navigation@6"
 				},
 				{
-					"command": "commentFormatter.colorLightBlue",
+					"command": "commentStyler.colorCyan",
 					"group": "navigation@7"
+				},
+				{
+					"command": "commentStyler.colorDefault",
+					"group": "navigation@8"
 				}
 			],
-			"commentFormatter.menu.size": [
+			"commentStyler.menu.size": [
 				{
-					"command": "commentFormatter.sizeX2",
+					"command": "commentStyler.size200",
 					"group": "navigation@1"
 				},
 				{
-					"command": "commentFormatter.sizeX15",
+					"command": "commentStyler.size150",
 					"group": "navigation@2"
 				},
 				{
-					"command": "commentFormatter.sizeX1",
+					"command": "commentStyler.size125",
 					"group": "navigation@3"
 				},
 				{
-					"command": "commentFormatter.sizeX075",
+					"command": "commentStyler.size100",
 					"group": "navigation@4"
 				},
 				{
-					"command": "commentFormatter.sizeX05",
+					"command": "commentStyler.size75",
 					"group": "navigation@5"
+				},
+				{
+					"command": "commentStyler.size50",
+					"group": "navigation@6"
 				}
 			],
-			"commentFormatter.editor.context": [
+			"commentStyler.editor.context": [
 				{
-					"command": "commentFormatter.bold",
-					"group": "commentFormatter",
+					"command": "commentStyler.bold",
+					"group": "commentStyler",
 					"when": "editorTextFocus && editorHasSelection "
 				},
 				{
-					"command": "commentFormatter.italic",
-					"group": "commentFormatter@1",
+					"command": "commentStyler.italic",
+					"group": "commentStyler@1",
 					"when": "editorTextFocus && editorHasSelection  "
 				},
 				{
-					"command": "commentFormatter.outline",
-					"group": "commentFormatter@1",
+					"command": "commentStyler.outline",
+					"group": "commentStyler@1",
 					"when": "editorTextFocus&& editorHasSelection "
 				},
 				{
-					"command": "commentFormatter.underline",
-					"group": "commentFormatter@1",
+					"command": "commentStyler.underline",
+					"group": "commentStyler@1",
 					"when": "editorTextFocus&& editorHasSelection "
 				},
 				{
-					"command": "commentFormatter.superscript",
-					"group": "commentFormatter@1",
+					"command": "commentStyler.superscript",
+					"group": "commentStyler@1",
 					"when": "editorTextFocus&& editorHasSelection "
 				},
 				{
-					"command": "commentFormatter.dummy",
-					"group": "commentFormatter@1",
+					"command": "commentStyler.dummy",
+					"group": "commentStyler@1",
 					"when": "editorTextFocus && !editorHasSelection"
 				},
 				{
-					"command": "commentFormatter.bullet",
+					"command": "commentStyler.bullet",
 					"group": "bullets",
 					"when": "editorTextFocus"
 				},
 				{
-					"command": "commentFormatter.bulletTriangle",
+					"command": "commentStyler.bulletTriangle",
 					"group": "bullets",
 					"when": "editorTextFocus"
 				}
@@ -411,5 +443,9 @@
 		"mocha": "^8.4.0",
 		"typescript": "^4.3.2",
 		"vscode-test": "^1.5.2"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/krembolabs/comment-styler.git"
 	}
 }

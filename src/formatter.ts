@@ -23,7 +23,7 @@ class FontAttributes {
 const Dictionary = {
 
     simple: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-    bold: "𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵",    
+    bold: "𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵",
     italic: "𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡0\u00001\u00002\u00003\u00004\u00005\u00006\u00007\u00008\u00009\u0000",
     boldItalic: "𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵",
     outline: "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝔸𝔹ℂ\u0000𝔻𝔼𝔽𝔾ℍ\u0000𝕀𝕁𝕂𝕃𝕄ℕ\u0000𝕆ℙ\u0000ℚ\u0000ℝ\u0000𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ\u0000𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡", //<= Some outlines are 16bit (e.g. C) while others 20bit.
@@ -66,12 +66,17 @@ class Formatter {
     regexFont = new Map();
 
     stylizeSelection(style: Style) {
-        switch (style) {
-            case Style.bold: this.formatSelection(FontType.bold); break;
-            case Style.italic: this.formatSelection(FontType.italic); break;
-            case Style.outline: this.formatSelection(FontType.outline); break;
-            case Style.underline: this.formatSelection(FontType.underline); break;
-            case Style.superscript: this.formatSelection(FontType.superscript); break;
+        if (this.isSelected()) {
+            switch (style) {
+                case Style.bold: this.formatSelection(FontType.bold); break;
+                case Style.italic: this.formatSelection(FontType.italic); break;
+                case Style.outline: this.formatSelection(FontType.outline); break;
+                case Style.underline: this.formatSelection(FontType.underline); break;
+                case Style.superscript: this.formatSelection(FontType.superscript); break;
+            }
+        } else {
+            vscode.window.showInformationMessage("Please select some text before performing this operation.");
+            return;
         }
     }
 
@@ -108,11 +113,11 @@ class Formatter {
             // Apply the operation on the selected text if exists, in this case do not toggle to sticky mode
 
             this.isBoldActive = this.isItalicActive = this.isUnderlineActive = this.isOutlineActive = false;
-            vscode.commands.executeCommand('setContext', 'commentFormatter.boldON', this.isBoldActive);
-            vscode.commands.executeCommand('setContext', 'commentFormatter.italicON', this.isItalicActive);
-            vscode.commands.executeCommand('setContext', 'commentFormatter.underlineON', this.isUnderlineActive);
-            vscode.commands.executeCommand('setContext', 'commentFormatter.outlineON', this.isOutlineActive);
-            vscode.commands.executeCommand('setContext', 'commentFormatter.superscriptON', this.isSuperscriptActive);
+            vscode.commands.executeCommand('setContext', 'commentStyler.boldON', this.isBoldActive);
+            vscode.commands.executeCommand('setContext', 'commentStyler.italicON', this.isItalicActive);
+            vscode.commands.executeCommand('setContext', 'commentStyler.underlineON', this.isUnderlineActive);
+            vscode.commands.executeCommand('setContext', 'commentStyler.outlineON', this.isOutlineActive);
+            vscode.commands.executeCommand('setContext', 'commentStyler.superscriptON', this.isSuperscriptActive);
 
             this.stylizeSelection(style);
 
@@ -140,11 +145,11 @@ class Formatter {
                     this.isBoldActive = this.isItalicActive = this.isUnderlineActive = this.isOutlineActive = false;
                     break;
             }
-            vscode.commands.executeCommand('setContext', 'commentFormatter.boldON', this.isBoldActive);
-            vscode.commands.executeCommand('setContext', 'commentFormatter.italicON', this.isItalicActive);
-            vscode.commands.executeCommand('setContext', 'commentFormatter.underlineON', this.isUnderlineActive);
-            vscode.commands.executeCommand('setContext', 'commentFormatter.outlineON', this.isOutlineActive);
-            vscode.commands.executeCommand('setContext', 'commentFormatter.superscriptON', this.isSuperscriptActive);
+            vscode.commands.executeCommand('setContext', 'commentStyler.boldON', this.isBoldActive);
+            vscode.commands.executeCommand('setContext', 'commentStyler.italicON', this.isItalicActive);
+            vscode.commands.executeCommand('setContext', 'commentStyler.underlineON', this.isUnderlineActive);
+            vscode.commands.executeCommand('setContext', 'commentStyler.outlineON', this.isOutlineActive);
+            vscode.commands.executeCommand('setContext', 'commentStyler.superscriptON', this.isSuperscriptActive);
 
         }
     }
@@ -160,10 +165,14 @@ class Formatter {
 
         if (sample.length == 1) {
             firstCharIndex = 0;
-        } else
-            if (sample.length >= 3 && isControlChar(sample.charAt(0))) {
-                firstCharIndex = 3;
+        } else {
+            if (sample.length >= 4 && isControlChar(sample.charAt(0))) {
+                firstCharIndex = 4;
+                if (sample.length >= 8 && isControlChar(sample.charAt(4))) {
+                    firstCharIndex = 8;
+                }
             }
+        }
         if ((sample.codePointAt(firstCharIndex) || 0) <= 255) {
             return FontType.simple;
         }
@@ -246,9 +255,6 @@ class Formatter {
                                 let actualTarget = this.actualFormat(curFont, type);
                                 let resultStr = this.translate(edit.text, curFont, actualTarget);
 
-                                console.log("curFont:" + curFont.name, " Target:" + actualTarget.name);
-                                console.log(edit.text + " -> " + resultStr);
-
                                 if (resultStr == edit.text) {
                                     console.log("No change, exiting");
                                     return; // No change is needed
@@ -259,7 +265,6 @@ class Formatter {
                                 let endPos = startPos.translate(0, edit.text.length);
                                 let range = new vscode.Range(startPos, endPos);
 
-                                console.log(`Replacing [L:${startPos.line},C:${startPos.character}] -> [L:${endPos.line},C:${endPos.character}]`);                                
                                 editBuilder.replace(range, resultStr);
                             }
                         } catch (err) {
@@ -279,6 +284,34 @@ class Formatter {
     }
 
 
+    toggleUnderline(text: string, font:FontAttributes):string {
+        const UNDERSCORE = "͟";
+
+        let noUS = text.replace(/͟/g,'');
+        if (noUS.length<text.length) {
+            return noUS;
+        }
+
+        let result="";
+        let next="";
+
+        for (let c of text) {
+            let cp = c.codePointAt(0);
+            let ch = String.fromCodePoint(cp || 0);
+ 
+            if (!isControlChar(ch)&&ch!=" "&&cp!=10&&cp!=13) {            
+                result+=next+ch;                
+                next = UNDERSCORE; // Add this on the next iteration (not relevant to the last character)
+            } else {
+                result += ch;
+                next = "";                
+            }
+        }
+        // Special case: single letter can have an underline although it's the "last" letter
+        result = result.replace(/(^|\s)(.)(\s)/gmu,'$1'+UNDERSCORE+'$2$3');
+        return result;
+    }
+
     translate(word: string, curFont: FontAttributes, actualTarget: FontAttributes): string {
 
         let re = this.regexFont.get(curFont.name);
@@ -287,22 +320,27 @@ class Formatter {
             this.regexFont.set(curFont.name, re);
         }
 
-        // Underline based on unicode tends to continue past the last character, therefore we skip the it
-        let suffix = "";
         if (actualTarget == FontType.underline) {
-            if (word.length > 1) {
-                suffix = word.charAt(word.length - 1);
-                word = word.substr(0, word.length - 1);
-            } else {
-                return "͟" + word;
-            }
+            return this.toggleUnderline(word,curFont);
         }
 
+
+        // Underline based on unicode tends to continue past the last character, therefore we skip the it
+        /*        let suffix = "";
+                if (actualTarget == FontType.underline) {
+                    if (word.length > 1) {
+                        suffix = word.charAt(word.length - 1);
+                        word = word.substr(0, word.length - 1);
+                    } else {
+                        return "͟" + word;
+                    }
+                }
+        */
         let resultStr = word.replace(re, chr => {
             let x = (re.source.indexOf(chr) - 1) / curFont.charSize;
-            if (chr == "͟" && actualTarget != FontType.underline) {
-                return ""
-            }
+            /*            if (chr == "͟" && actualTarget != FontType.underline) {
+                            return ""
+                        }*/
             let z = "";
             for (let j = 0; j < actualTarget.charPoints; j++) {
                 // If the element at pos is a UTF-16 high surrogate, we want the code point of the surrogate pair so we skip the low surrogate point
@@ -311,10 +349,8 @@ class Formatter {
             }
             return z;
         })
-        end = Date.now();
-        console.warn(`Regex: ${end-start}ms`);
 
-        resultStr += suffix;
+        //        resultStr += suffix;
         return resultStr;
     }
 
@@ -345,56 +381,27 @@ class Formatter {
 
     }
 
-
-    onEdit(event: vscode.TextDocumentChangeEvent) {
-        if (this.isStickyModeActive()) {
-            try {
-                if (event.contentChanges.length) {
-
-                    if (this.ignoreNextEdit) {
-                        this.ignoreNextEdit = false;
-                        return;
-                    }
-                    let font = this.getCurFontAttr();
-                    this.edits.push(...event.contentChanges);
-                    
-                    this.formatEdit(font, event.document);
-
-                }
-            } catch (err) {
-                console.log(err);
-            }
-        }
-        let hasControls = false;
-        if (event.contentChanges.length) {
-            hasControls = hasControlCodes(event.contentChanges[0].text);
-        }
-        if (event.reason || hasControls) {
-            Stylizer.applyRules();
-        }
-    }
-
     onType(args: { text: string }) {
-        
-        if (this.isStickyModeActive()) {            
+
+        if (this.isStickyModeActive()) {
             let curFont = FontType.simple; //this.getCurFont(edit.text);
             let actualTarget = this.actualFormat(curFont, this.getCurFontAttr());
             let resultStr = this.translate(args.text, curFont, actualTarget);
-            args.text=resultStr;
+            args.text = resultStr;
         }
-        
+
         return vscode.commands.executeCommand("default:type", args);
     }
 
     onPaste(args: { text: string, pasteOnNewLine: boolean }) {
 
         return vscode.commands.executeCommand("default:paste", args).then(() => {
-            
-                setTimeout(Stylizer.applyRules.bind(Stylizer),10);
-            });
-        
 
-        
+            setTimeout(Stylizer.applyRules.bind(Stylizer), 10);
+        });
+
+
+
     }
 
 }

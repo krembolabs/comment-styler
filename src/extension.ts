@@ -6,38 +6,40 @@ import Stylizer from './stylizer';
 export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('commentFormatter.bold', () => {Formatter.toggleMode(Style.bold)}),
-		vscode.commands.registerCommand('commentFormatter.boldOff', () => { Formatter.toggleMode(Style.bold) }),
-		vscode.commands.registerCommand('commentFormatter.italic', () => { Formatter.toggleMode(Style.italic) }),
-		vscode.commands.registerCommand('commentFormatter.italicOff', () => { Formatter.toggleMode(Style.italic) }),
-		vscode.commands.registerCommand('commentFormatter.outline', () => { Formatter.toggleMode(Style.outline) }),
-		vscode.commands.registerCommand('commentFormatter.outlineOff', () => { Formatter.toggleMode(Style.outline) }),
-		vscode.commands.registerCommand('commentFormatter.underline', () => { Formatter.toggleMode(Style.underline) }),
-		vscode.commands.registerCommand('commentFormatter.underlineOff', () => { Formatter.toggleMode(Style.underline) }),
-		vscode.commands.registerCommand('commentFormatter.superscript', () => { Formatter.toggleMode(Style.superscript);}),
-		vscode.commands.registerCommand('commentFormatter.superscriptOff', () => { Formatter.toggleMode(Style.superscript);}),
 
-		vscode.commands.registerCommand('commentFormatter.bullet', () => { Formatter.bullet(BulletType.circle);}),
-		vscode.commands.registerCommand('commentFormatter.bulletTriangle', () => { Formatter.bullet(BulletType.triangle); }),
-		vscode.commands.registerCommand('commentFormatter.colorRed', () => { Stylizer.markColor(Color.red)}),
-		vscode.commands.registerCommand('commentFormatter.colorBlue', () => { Stylizer.markColor(Color.blue)}),
-		vscode.commands.registerCommand('commentFormatter.colorGreen', () => { Stylizer.markColor(Color.green)}),
-		vscode.commands.registerCommand('commentFormatter.colorYellow', () => { Stylizer.markColor(Color.yellow)}),
-		vscode.commands.registerCommand('commentFormatter.colorPurple', () => { Stylizer.markColor(Color.purple)}),
-		vscode.commands.registerCommand('commentFormatter.colorOrange', () => { Stylizer.markColor(Color.orange)}),
-		vscode.commands.registerCommand('commentFormatter.colorLightBlue', () => { Stylizer.markColor(Color.lightblue)}),
-		
-		vscode.commands.registerCommand('commentFormatter.colorDefault', () => { Stylizer.markColor(Color.default) }),
 
-		vscode.commands.registerCommand('commentFormatter.sizeX1', () => { Stylizer.markSize(Size.sizeX1) }),
-		vscode.commands.registerCommand('commentFormatter.sizeX2', () => { Stylizer.markSize(Size.sizeX2) }),
-		vscode.commands.registerCommand('commentFormatter.sizeX05', () => { Stylizer.markSize(Size.sizeX05) }),
-		vscode.commands.registerCommand('commentFormatter.sizeX075', () => { Stylizer.markSize(Size.sizeX075) }),
-		vscode.commands.registerCommand('commentFormatter.sizeX15', () => { Stylizer.markSize(Size.sizeX15) }),
+		vscode.commands.registerCommand('commentStyler.openDrawer', () => {drawer(true);}),
+		vscode.commands.registerCommand('commentStyler.closeDrawer', () => {drawer(false);}),
 		
-		vscode.commands.registerCommand('commentFormatter.stylizeDoc', () => { Stylizer.applyRules(); }),
+		vscode.commands.registerCommand('commentStyler.bold', () => {Formatter.toggleMode(Style.bold)}),
+		vscode.commands.registerCommand('commentStyler.boldOff', () => { Formatter.toggleMode(Style.bold) }),
+		vscode.commands.registerCommand('commentStyler.italic', () => { Formatter.toggleMode(Style.italic) }),
+		vscode.commands.registerCommand('commentStyler.italicOff', () => { Formatter.toggleMode(Style.italic) }),
+		vscode.commands.registerCommand('commentStyler.outline', () => { Formatter.stylizeSelection(Style.outline) }),
+		vscode.commands.registerCommand('commentStyler.outlineOff', () => { Formatter.toggleMode(Style.outline) }),		
+		vscode.commands.registerCommand('commentStyler.superscript', () => { Formatter.toggleMode(Style.superscript);}),
+		vscode.commands.registerCommand('commentStyler.superscriptOff', () => { Formatter.toggleMode(Style.superscript);}),
+		vscode.commands.registerCommand('commentStyler.underline', () => { Formatter.stylizeSelection(Style.underline)}),
+		vscode.commands.registerCommand('commentStyler.bullet', () => { Formatter.bullet(BulletType.circle);}),
+		vscode.commands.registerCommand('commentStyler.bulletTriangle', () => { Formatter.bullet(BulletType.triangle); }),
+		vscode.commands.registerCommand('commentStyler.colorRed', () => { Stylizer.markColor(Color.red)}),
+		vscode.commands.registerCommand('commentStyler.colorBlue', () => { Stylizer.markColor(Color.blue)}),
+		vscode.commands.registerCommand('commentStyler.colorGreen', () => { Stylizer.markColor(Color.green)}),
+		vscode.commands.registerCommand('commentStyler.colorYellow', () => { Stylizer.markColor(Color.yellow)}),
+		vscode.commands.registerCommand('commentStyler.colorPurple', () => { Stylizer.markColor(Color.purple)}),
+		vscode.commands.registerCommand('commentStyler.colorOrange', () => { Stylizer.markColor(Color.orange)}),
+		vscode.commands.registerCommand('commentStyler.colorCyan', () => { Stylizer.markColor(Color.cyan)}),
+		vscode.commands.registerCommand('commentStyler.colorDefault', () => { Stylizer.markColor(Color.default) }),
+
+		vscode.commands.registerCommand('commentStyler.size100', () => { Stylizer.markSize(Size.size100) }),
+		vscode.commands.registerCommand('commentStyler.size200', () => { Stylizer.markSize(Size.size200) }),
+		vscode.commands.registerCommand('commentStyler.size50', () => { Stylizer.markSize(Size.size50) }),
+		vscode.commands.registerCommand('commentStyler.size75', () => { Stylizer.markSize(Size.size75) }),
+		vscode.commands.registerCommand('commentStyler.size150', () => { Stylizer.markSize(Size.size150) }),
+		vscode.commands.registerCommand('commentStyler.size125', () => { Stylizer.markSize(Size.size125) }),
+		
+		vscode.commands.registerCommand('commentStyler.stylizeDoc', () => { Stylizer.applyRules(); }),
 		vscode.window.onDidChangeActiveTextEditor(() => Stylizer.applyRules()),
-//		vscode.workspace.onDidChangeTextDocument(Formatter.onEdit.bind(Formatter)),
 
 		// Due to VSCode bug registering 'type' event results in slowness: 
 		// https://github.com/microsoft/vscode/issues/65876
@@ -48,6 +50,10 @@ export function activate(context: vscode.ExtensionContext) {
 
 	);
 	Stylizer.applyRules();
+}
+
+function drawer(open:boolean) {
+	vscode.commands.executeCommand('setContext', 'commentStyler.drawerOpen', open);
 }
 
 export function deactivate() {}

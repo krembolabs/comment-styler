@@ -1,4 +1,4 @@
-# Comment Formatter
+# Comments in Style
 
 Ever wanted to mark important part of your comment in **Bold**? maybe in *Italics*? Why not both?
 Comment Formatter allows you to do so and much more!
@@ -33,6 +33,9 @@ This extension contributes the following settings:
 * `myExtension.thing`: set to `blah` to do something
 
 ## Known Issues
+
+► In 𝘗𝘺𝘊𝘩𝘢𝘳𝘮, the hidden codes (for color/font size) may become visible. 
+They can be removed by clicking "Enable font ligatures" under Settings->Editor->Font
 
 ► If you encounter slowness while typing try disabling other extensions, especially colorizing ones like "𝘉𝘳𝘢𝘤𝘬𝘦𝘵 𝘗𝘢𝘪𝘳 𝘊𝘰𝘭𝘰𝘳𝘪𝘻𝘦𝘳".
 
