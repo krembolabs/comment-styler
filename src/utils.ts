@@ -8,3 +8,4 @@ export function hasControlCodes(str:string):boolean {
 export function isControlChar(chr:string) {
     return (hasControlCodes(chr));
 }
+

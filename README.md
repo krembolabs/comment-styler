@@ -1,9 +1,45 @@
-# Comments in Style
+# Comment Styler
 
-Ever wanted to mark important part of your comment in **Bold**? maybe in *Italics*? Why not both?
-Comment Formatter allows you to do so and much more!
-By substituting regular ASCII characters with Unicode you can use **Bold**, *Italics*, <u>Underline</u>, 𝕆𝕦𝕥𝕝𝕚𝕟𝕖 and even ˢᵘᵖᵉʳˢᶜʳᶦᵖᵗ in your regular programming code.
 
+This extension allows you to add style to your code comments as if you were using a word processor. 
+
+Let's take this comment for example:
+
+![Regular comment](resource/readme/regular_comment70.png)
+
+Wouldn't it be nice to style the comment as if it was a Word document?
+
+![Styled comment](resource/readme/styled_comment70.png)
+
+
+Now you may ask, "what would happen if I share this code with my friend who does not use this extension?".
+Moreover, perhaps you use VSCode, but your colleagues use a completely different IDE...
+
+To address this issue, the extension saves the styling as standard Unicode characters - as much as possible. 
+However, since Unicode does not support font size or color this type of information is encoded with invisible characters. 
+This means that 𝗯𝗼𝗹𝗱, 𝘪𝘵𝘢𝘭𝘪𝘤𝘴, u͟n͟d͟e͟r͟l͟i͟n͟e, 𝕠𝕦𝕥𝕝𝕚𝕟𝕖 and other styles are viewable in other IDEs, while color and font size will be ignored.
+
+<u>**Important**</u>: The actual result may differ depending on the font type used in the editor. 
+Also, even if an editor displays the text as expected this behavior may break in future versions of the editor - we have no control over that!
+
+
+**Here are some examples:**
+
+VSCode <u>without</u> the extension:
+
+![regular](resource/readme/vsc_no_extension70.png)
+
+PyCharm 2019.3:
+
+![regular](resource/readme/pycharm70.png)
+
+Visual Studio 2019:
+
+![regular](resource/readme/vs70.png)
+
+Even good old Notepad:
+
+![regular](resource/readme/notepad70.png)
 
 
 
@@ -41,25 +77,3 @@ For cSpell users, add the following setting:
 ]
 </pre>
 
-
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**

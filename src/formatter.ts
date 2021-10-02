@@ -39,8 +39,8 @@ const Dictionary = {
 const FontType = {
     simple: new FontAttributes("simple", 1, 1, false, Dictionary.simple),
     bold: new FontAttributes("bold", 2, 1, true, (Settings.serifFont) ? Dictionary.boldSerif : Dictionary.bold),
-    italic: new FontAttributes("italic", 2, 1, true, (Settings.serifFont)?Dictionary.italicSerif:Dictionary.italic),
-    boldItalic: new FontAttributes("boldItalic", 2, 1, true, (Settings.serifFont)?Dictionary.boldItalicSerif:Dictionary.boldItalic),
+    italic: new FontAttributes("italic", 2, 1, true, (Settings.serifFont) ? Dictionary.italicSerif : Dictionary.italic),
+    boldItalic: new FontAttributes("boldItalic", 2, 1, true, (Settings.serifFont) ? Dictionary.boldItalicSerif : Dictionary.boldItalic),
     outline: new FontAttributes("outline", 2, 1, true, Dictionary.outline),
     underline: new FontAttributes("underline", 2, 2, true, Dictionary.underline),
     superscript: new FontAttributes("superscript", 1, 1, false, Dictionary.superscript),
@@ -275,35 +275,35 @@ class Formatter {
         }
     }
 
-    isSupportsUnderline(ch:string):boolean {
+    isSupportsUnderline(ch: string): boolean {
         return (!ch.match(/[,.;\n\r ]/));
     }
 
-    toggleUnderline(text: string, font:FontAttributes):string {
+    toggleUnderline(text: string): string {
         const UNDERSCORE = "͟";
 
-        let noUS = text.replace(/͟/g,'');
-        if (noUS.length<text.length) {
+        let noUS = text.replace(/͟/g, '');
+        if (noUS.length < text.length) {
             return noUS;
         }
 
-        let result="";
-        let next="";
+        let result = "";
+        let next = "";
 
         for (let c of text) {
             let cp = c.codePointAt(0);
             let ch = String.fromCodePoint(cp || 0);
- 
-            if (!isControlChar(ch)&&this.isSupportsUnderline(ch)) { //ch!=" "&&ch!=","&&ch!="."&&ch!=";"&&cp!=10&&cp!=13) {            
-                result+=next+ch;                
+
+            if (!isControlChar(ch) && this.isSupportsUnderline(ch)) { //ch!=" "&&ch!=","&&ch!="."&&ch!=";"&&cp!=10&&cp!=13) {            
+                result += next + ch;
                 next = UNDERSCORE; // Add this on the next iteration (not relevant to the last character)
             } else {
                 result += ch;
-                next = "";                
+                next = "";
             }
         }
         // Special case: single letter can have an underline although it's the "last" letter
-        result = result.replace(/(^|\s)(.)(\s)/gmu,'$1'+UNDERSCORE+'$2$3');
+        result = result.replace(/(^|\s)(.)(\s)/gmu, '$1' + UNDERSCORE + '$2$3');
         return result;
     }
 
@@ -316,7 +316,11 @@ class Formatter {
         }
 
         if (actualTarget == FontType.underline || (actualTarget == FontType.simple && curFont == FontType.underline)) {
-            return this.toggleUnderline(word,curFont);
+            return this.toggleUnderline(word);
+        }
+
+        if (curFont == FontType.underline) {
+            word = this.toggleUnderline(word);
         }
 
         let resultStr = word.replace(re, chr => {
@@ -329,59 +333,61 @@ class Formatter {
             }
             return z;
         })
-
+        if (curFont == FontType.underline) {
+            resultStr = this.toggleUnderline(resultStr);
+        }
         return resultStr;
     }
 
-    isStickyModeActive() {
-        return (this.isBoldActive || this.isItalicActive || this.isOutlineActive || this.isUnderlineActive || this.isSuperscriptActive);
-    }
+isStickyModeActive() {
+    return (this.isBoldActive || this.isItalicActive || this.isOutlineActive || this.isUnderlineActive || this.isSuperscriptActive);
+}
 
-    getCurFontAttr(): FontAttributes {
-        if (this.isBoldActive && this.isItalicActive) {
-            return FontType.boldItalic;
+getCurFontAttr(): FontAttributes {
+    if (this.isBoldActive && this.isItalicActive) {
+        return FontType.boldItalic;
+    } else
+        if (this.isBoldActive) {
+            return FontType.bold;
         } else
-            if (this.isBoldActive) {
-                return FontType.bold;
+            if (this.isItalicActive) {
+                return FontType.italic;
             } else
-                if (this.isItalicActive) {
-                    return FontType.italic;
+                if (this.isOutlineActive) {
+                    return FontType.outline;
                 } else
-                    if (this.isOutlineActive) {
-                        return FontType.outline;
+                    if (this.isUnderlineActive) {
+                        return FontType.underline;
                     } else
-                        if (this.isUnderlineActive) {
-                            return FontType.underline;
-                        } else
-                            if (this.isSuperscriptActive) {
-                                return FontType.superscript;
-                            }
-        return FontType.simple;
+                        if (this.isSuperscriptActive) {
+                            return FontType.superscript;
+                        }
+    return FontType.simple;
 
+}
+
+onType(args: { text: string }) {
+
+    if (this.isStickyModeActive()) {
+        let curFont = FontType.simple;
+        let actualTarget = this.actualFormat(curFont, this.getCurFontAttr());
+        let resultStr = this.translate(args.text, curFont, actualTarget);
+        args.text = resultStr;
     }
 
-    onType(args: { text: string }) {
+    return vscode.commands.executeCommand("default:type", args);
+}
 
-        if (this.isStickyModeActive()) {
-            let curFont = FontType.simple; 
-            let actualTarget = this.actualFormat(curFont, this.getCurFontAttr());
-            let resultStr = this.translate(args.text, curFont, actualTarget);
-            args.text = resultStr;
-        }
+onPaste(args: { text: string, pasteOnNewLine: boolean }) {
 
-        return vscode.commands.executeCommand("default:type", args);
-    }
+    return vscode.commands.executeCommand("default:paste", args).then(() => {
 
-    onPaste(args: { text: string, pasteOnNewLine: boolean }) {
-
-        return vscode.commands.executeCommand("default:paste", args).then(() => {
-
-            setTimeout(Stylizer.applyRules.bind(Stylizer), 10);
-        });
+        setTimeout(Stylizer.applyRules.bind(Stylizer), 10);
+    });
 
 
 
-    }
+}
 
 }
 
