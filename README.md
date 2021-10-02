@@ -5,12 +5,19 @@ This extension allows you to add style to your code comments as if you were usin
 
 Let's take this comment for example:
 
-![Regular comment](resource/readme/regular_comment70.png)
+![Regular comment](resource/readme/regular_comment.png)
 
 Wouldn't it be nice to style the comment as if it was a Word document?
 
-![Styled comment](resource/readme/styled_comment70.png)
+![Styled comment](resource/readme/styled_comment.png)
 
+
+Or, all styles together:
+
+![regular](resource/readme/all.png)
+
+
+# Compatibility with other editors
 
 Now you may ask, "what would happen if I share this code with my friend who does not use this extension?".
 Moreover, perhaps you use VSCode, but your colleagues use a completely different IDE...
@@ -21,40 +28,31 @@ This means that 𝗯𝗼𝗹𝗱, 𝘪𝘵𝘢𝘭𝘪𝘤𝘴, u͟n͟d͟e͟r͟l
 
 <u>**Important**</u>: The actual result may differ depending on the font type used in the editor. 
 Also, even if an editor displays the text as expected this behavior may break in future versions of the editor - we have no control over that!
-
-
+  
+  
 **Here are some examples:**
 
 VSCode <u>without</u> the extension:
 
-![regular](resource/readme/vsc_no_extension70.png)
+![regular](resource/readme/vsc_no_extension.png)
 
 PyCharm 2019.3:
 
-![regular](resource/readme/pycharm70.png)
+![regular](resource/readme/pycharm.png)
 
 Visual Studio 2019:
 
-![regular](resource/readme/vs70.png)
+![regular](resource/readme/vs.png)
 
 Even good old Notepad:
 
-![regular](resource/readme/notepad70.png)
+![regular](resource/readme/notepad.png)
 
 
 
-## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-\
-## Extension Settings
+## Configuration
 
 ```js
 {
