@@ -2,7 +2,7 @@
 	"name": "comment-styler",
 	"displayName": "Comment Styler",
 	"description": "Add style to comments in your source code",
-	"publisher": "KremboLabs",
+	"publisher": "krembolabs",
 	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.60.0"
