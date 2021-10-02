@@ -1,13 +1,15 @@
 {
 	"name": "comment-styler",
 	"displayName": "Comment Styler",
-	"description": "Add format to comments",
+	"description": "Add style to comments in your source code",
 	"publisher": "KremboLabs",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.60.0"
 	},
 	"categories": [
+		"Programming Languages",
+		"Formatters",
 		"Other"
 	],
 	"icon": "resource/logo/logo.png",
@@ -131,8 +133,7 @@
 			},
 			{
 				"command": "commentStyler.colorDefault",
-				"title": "DEFAULT",
-				"icon": "resource/icon/colors.png"
+				"title": "DEFAULT"
 			},
 			{
 				"command": "commentStyler.size100",
@@ -195,12 +196,12 @@
 			{
 				"command": "commentStyler.bold",
 				"key": "alt+d",
-				"when": "editorTextFocus && editorHasSelection"
+				"when": "editorTextFocus "
 			},
 			{
 				"command": "commentStyler.italic",
 				"key": "alt+i",
-				"when": "editorTextFocus && editorHasSelection"
+				"when": "editorTextFocus"
 			},
 			{
 				"command": "commentStyler.underline",
@@ -226,18 +227,12 @@
 			{
 				"id": "commentStyler.menu.colors",
 				"label": "Colors",
-				"icon": {
-					"dark": "resource/icon/colors.png",
-					"light": "resource/icon/colors.png"
-				}
+				"icon": "$(symbol-color)"
 			},
 			{
 				"id": "commentStyler.menu.size",
 				"label": "Font size",
-				"icon": {
-					"dark": "resource/icon/dark/sizes_dark.png",
-					"light": "resource/icon/light/sizes_light.png"
-				}
+				"icon": "$(text-size)"
 			}
 		],
 		"menus": {
@@ -253,59 +248,59 @@
 					"when": "commentStyler.drawerOpen"
 				},
 				{
+					"submenu": "commentStyler.menu.size",
+					"group": "navigation@2",
+					"when": "commentStyler.drawerOpen"
+				},
+				{
 					"submenu": "commentStyler.menu.colors",
-					"group": "navigation@1",
+					"group": "navigation@3",
 					"when": "commentStyler.drawerOpen"
 				},
 				{
 					"command": "commentStyler.bold",
-					"group": "navigation@2",
+					"group": "navigation@4",
 					"when": "!commentStyler.boldON&&commentStyler.drawerOpen"
 				},
 				{
 					"command": "commentStyler.boldOff",
-					"group": "navigation@2",
+					"group": "navigation@4",
 					"when": "commentStyler.boldON&&commentStyler.drawerOpen"
 				},
 				{
 					"command": "commentStyler.italic",
-					"group": "navigation@3",
+					"group": "navigation@5",
 					"when": "!commentStyler.italicON&&commentStyler.drawerOpen"
 				},
 				{
 					"command": "commentStyler.italicOff",
-					"group": "navigation@3",
+					"group": "navigation@5",
 					"when": "commentStyler.italicON&&commentStyler.drawerOpen"
 				},
 				{
 					"command": "commentStyler.underline",
-					"group": "navigation@3",
+					"group": "navigation@6",
 					"when": "commentStyler.drawerOpen"
 				},
 				{
-					"command": "commentStyler.outlineOff",
-					"group": "navigation@4",
-					"when": "commentStyler.outlineON&&commentStyler.drawerOpen"
-				},
-				{
 					"command": "commentStyler.outline",
-					"group": "navigation@4",
+					"group": "navigation@7",
 					"when": "!commentStyler.outlineON&&commentStyler.drawerOpen"
 				},
 				{
+					"command": "commentStyler.outlineOff",
+					"group": "navigation@7",
+					"when": "commentStyler.outlineON&&commentStyler.drawerOpen"
+				},
+				{
 					"command": "commentStyler.superscript",
-					"group": "navigation@5",
+					"group": "navigation@8",
 					"when": "!commentStyler.superscriptON&&commentStyler.drawerOpen"
 				},
 				{
 					"command": "commentStyler.superscriptOff",
-					"group": "navigation@5",
+					"group": "navigation@8",
 					"when": "commentStyler.superscriptON&&commentStyler.drawerOpen"
-				},
-				{
-					"submenu": "commentStyler.menu.size",
-					"group": "navigation@6",
-					"when": "commentStyler.drawerOpen"
 				}
 			],
 			"commandPalette": [
@@ -421,6 +416,22 @@
 					"when": "editorTextFocus"
 				}
 			]
+		},
+		"configuration": {
+			"type": "object",
+			"title": "Comment Styler",
+			"properties": {
+				"commentStyler.useDrawer": {
+					"type": "boolean",
+					"description": "Hide style options until drawer button is clicked",
+					"default": true
+				},
+				"commentStyler.serifFont": {
+					"type": "boolean",
+					"description": "Should Bold and Italics use serif font (letters with small extra stroke)",
+					"default": false
+				}
+			}
 		}
 	},
 	"scripts": {

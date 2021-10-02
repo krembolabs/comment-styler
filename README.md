@@ -17,21 +17,15 @@ For example if there is an image subfolder under your extension project workspac
 
 > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
+\
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
+```js
+{
+  "commentStyler.useDrawer": true, // Hide style options until drawer button is clicked
+  "commentStyler.serifFont": false, // Should Bold and Italics use serif font (letters with small extra stroke)
+}
+```
 ## Known Issues
 
 ► In 𝘗𝘺𝘊𝘩𝘢𝘳𝘮, the hidden codes (for color/font size) may become visible. 
@@ -47,21 +41,6 @@ For cSpell users, add the following setting:
 ]
 </pre>
 
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
 
 -----------------------------------------------------------------------------------------------------------
 ## Following extension guidelines

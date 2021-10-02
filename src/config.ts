@@ -1,3 +1,4 @@
+import * as vscode from 'vscode';
 
 export const Rules = {   
     "(\\u2062\\u2062\\u2062)(.*?)(\\u2061)": {
@@ -35,8 +36,24 @@ export const Rules = {
     },
     "(\\u200D\\u200C\\u200C)(.*?)(\\u200B)": {
         "stylePerGroup": [{}, { "textDecoration": ";font-size:0.5em" }, {}]
+    }    
+}
+
+class Settings {
+    
+    useDrawer = true;
+    serifFont = false;
+
+    init() {
+        let cfg = vscode.workspace.getConfiguration().get("commentStyler") as any;        
+
+        this.useDrawer = cfg.useDrawer;
+        this.serifFont = cfg.serifFont;
     }
     
 }
 
+const settings = new Settings();
+settings.init();
+export default settings;
 

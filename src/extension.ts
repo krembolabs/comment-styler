@@ -2,11 +2,11 @@ import * as vscode from 'vscode';
 import Formatter from './formatter';
 import { BulletType, Style, Color, Size } from './types';
 import Stylizer from './stylizer';
+import Settings from './config';
 
 export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
-
 
 		vscode.commands.registerCommand('commentStyler.openDrawer', () => {drawer(true);}),
 		vscode.commands.registerCommand('commentStyler.closeDrawer', () => {drawer(false);}),
@@ -15,13 +15,15 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.commands.registerCommand('commentStyler.boldOff', () => { Formatter.toggleMode(Style.bold) }),
 		vscode.commands.registerCommand('commentStyler.italic', () => { Formatter.toggleMode(Style.italic) }),
 		vscode.commands.registerCommand('commentStyler.italicOff', () => { Formatter.toggleMode(Style.italic) }),
-		vscode.commands.registerCommand('commentStyler.outline', () => { Formatter.stylizeSelection(Style.outline) }),
+		vscode.commands.registerCommand('commentStyler.outline', () => { Formatter.toggleMode(Style.outline) }),
 		vscode.commands.registerCommand('commentStyler.outlineOff', () => { Formatter.toggleMode(Style.outline) }),		
 		vscode.commands.registerCommand('commentStyler.superscript', () => { Formatter.toggleMode(Style.superscript);}),
-		vscode.commands.registerCommand('commentStyler.superscriptOff', () => { Formatter.toggleMode(Style.superscript);}),
+		vscode.commands.registerCommand('commentStyler.superscriptOff', () => { Formatter.toggleMode(Style.superscript);}),		
 		vscode.commands.registerCommand('commentStyler.underline', () => { Formatter.stylizeSelection(Style.underline)}),
+
 		vscode.commands.registerCommand('commentStyler.bullet', () => { Formatter.bullet(BulletType.circle);}),
 		vscode.commands.registerCommand('commentStyler.bulletTriangle', () => { Formatter.bullet(BulletType.triangle); }),
+
 		vscode.commands.registerCommand('commentStyler.colorRed', () => { Stylizer.markColor(Color.red)}),
 		vscode.commands.registerCommand('commentStyler.colorBlue', () => { Stylizer.markColor(Color.blue)}),
 		vscode.commands.registerCommand('commentStyler.colorGreen', () => { Stylizer.markColor(Color.green)}),
@@ -47,10 +49,14 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.commands.registerCommand("type", Formatter.onType.bind(Formatter)),
 		vscode.commands.registerCommand("paste", Formatter.onPaste.bind(Formatter)),
 		
-
 	);
+	if (Settings.useDrawer==false) {
+		drawer(true);
+	}
+	
 	Stylizer.applyRules();
 }
+
 
 function drawer(open:boolean) {
 	vscode.commands.executeCommand('setContext', 'commentStyler.drawerOpen', open);
