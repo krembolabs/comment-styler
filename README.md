@@ -14,7 +14,7 @@ Wouldn't it be nice to style the comment as if it was a Word document?
 
 ## Features
 
-The extension supports the following styles:
+The extension allows you to edit the following styles:
 
 * Bold
 * Italic
@@ -51,13 +51,13 @@ Since Unicode does not support font size or color this type of information is en
 This means that 𝗯𝗼𝗹𝗱, 𝘪𝘵𝘢𝘭𝘪𝘤𝘴, u͟n͟d͟e͟r͟l͟i͟n͟e, 𝕠𝕦𝕥𝕝𝕚𝕟𝕖 and other styles are viewable in other IDEs, while color and font size will be ignored and will be displayed as plain text.
 
 <u>**Important**</u>: The actual result may differ depending on the font type used in the editor. 
-Also, even if an editor displays the text as expected this behavior may break in future versions of the editor - we have no control over that!
+Also, even if an editor displays the text as expected this behavior may break in future version of the editor - we have no control over that!
   
   
   
 ##  Examples of how other IDEs display a file saved with the extension
 
-### VSCode <u>without</u> the extension:
+### VSCode <ins>without</ins> the extension:
 
 ![VSCode without extension](resource/readme/vsc_no_extension.png)
 
