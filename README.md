@@ -80,6 +80,11 @@ Also, even if an editor displays the text as expected this behavior may break in
 }
 ```
 
+## Command
+
+* `Stylize Document`: Perform styling over the entire document. If you notice incorrect coloring, running this command may fix the problem.
+
+
 
 ## Known Issues
 

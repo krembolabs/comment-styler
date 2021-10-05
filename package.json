@@ -3,7 +3,7 @@
 	"displayName": "Comment Styler",
 	"description": "Add style to comments in your source code",
 	"publisher": "krembolabs",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"engines": {
 		"vscode": "^1.60.0"
 	},
@@ -12,6 +12,7 @@
 		"font",		
 		"text",
 		"color",
+		"style",
 		"size"
 	],
 	"categories": [
@@ -27,6 +28,7 @@
 	"contributes": {
 		"commands": [
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.openDrawer",
 				"title": "Open Styles",
 				"icon": {
@@ -35,6 +37,7 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.closeDrawer",
 				"title": "Close Styles",
 				"icon": {
@@ -43,6 +46,7 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.bold",
 				"title": "Bold (𝗕𝗼𝗹𝗱)",
 				"icon": {
@@ -51,6 +55,7 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.boldOff",
 				"title": "Bold (𝗕𝗼𝗹𝗱)",
 				"icon": {
@@ -59,6 +64,7 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.italic",
 				"title": "Italic (𝘐𝘵𝘢𝘭𝘪𝘤)",
 				"icon": {
@@ -67,6 +73,7 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.italicOff",
 				"title": "Italic (𝘐𝘵𝘢𝘭𝘪𝘤)",
 				"icon": {
@@ -75,6 +82,7 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.outline",
 				"title": "Outline (𝕆𝕦𝕥𝕝𝕚𝕟𝕖)",
 				"icon": {
@@ -83,6 +91,7 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.outlineOff",
 				"title": "Outline (𝕆𝕦𝕥𝕝𝕚𝕟𝕖)",
 				"icon": {
@@ -91,6 +100,7 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.underline",
 				"title": "Underline (U͟n͟d͟e͟r͟l͟i͟n͟e)",
 				"icon": {
@@ -99,6 +109,7 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.underlineOff",
 				"title": "Underline (U͟n͟d͟e͟r͟l͟i͟n͟e)",
 				"icon": {
@@ -107,6 +118,7 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.superscript",
 				"title": "Superscipt (ˢᵘᵖᵉʳ-ˢᶜʳᶦᵖᵗ)",
 				"icon": {
@@ -115,6 +127,7 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.superscriptOff",
 				"title": "Superscipt (ˢᵘᵖᵉʳ-ˢᶜʳᶦᵖᵗ)",
 				"icon": {
@@ -123,78 +136,97 @@
 				}
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.dummy",
 				"title": "( Please select one word or more )"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.bullet",
 				"title": "Place bullet point (•)"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.bulletTriangle",
 				"title": "Place triangle bullet (►)"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.stylizeDoc",
 				"title": "Stylize Document"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.colorDefault",
 				"title": "DEFAULT"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.size100",
 				"title": "Size 100%"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.size125",
 				"title": "Size 125%"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.size150",
 				"title": "Size 150%"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.size200",
 				"title": "Size 200%"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.size75",
 				"title": "Size 75%"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.size50",
 				"title": "Size 50%"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.colorRed",
 				"title": "RED"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.colorBlue",
 				"title": "BLUE"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.colorGreen",
 				"title": "GREEN"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.colorYellow",
 				"title": "YELLOW"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.colorOrange",
 				"title": "ORANGE"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.colorPurple",
 				"title": "PURPLE"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.colorCyan",
 				"title": "CYAN"
 			},
 			{
+				"category": "Comment Styler",
 				"command": "commentStyler.colorDefault",
 				"title": "(DEFAULT)"
 			}
