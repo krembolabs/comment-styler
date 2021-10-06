@@ -171,11 +171,12 @@ class Formatter {
             return FontType.simple;
         }
 
+        let compareCh = String.fromCodePoint(sample.codePointAt(firstCharIndex+1)||0);
 
         // This is probably not a simple font, go over registered fonts and look for appropriate one
         for (const f in FontType) {
             const font = FontType[f as keyof typeof FontType];            
-            if (font.letters.indexOf(sample[firstCharIndex+1]) >= 0) {
+            if (font.letters.indexOf(compareCh) >= 0) {
                 return font;
             }
         }

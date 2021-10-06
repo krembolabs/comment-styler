@@ -3,7 +3,7 @@
 	"displayName": "Comment Styler",
 	"description": "Add style to comments in your source code",
 	"publisher": "krembolabs",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"engines": {
 		"vscode": "^1.60.0"
 	},

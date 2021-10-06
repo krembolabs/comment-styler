@@ -1,16 +1,27 @@
-# Comment Styler
+# [Comment Styler](https://marketplace.visualstudio.com/items?itemName=krembolabs.comment-styler)
 
 
-This extension allows you to add style to your code comments as if you were using a word processor. 
-It supports comments in any programming language (Javascript, Python, C#, C++,...) or even plain text files.
+This extension allows you to style your code comments as if you were using a word processor.
 
-Let's take this comment for example:
+Write comments with **bold** and *italic* letters or use various <span style="font-size:1.3em">font sizes</span> and <span style="font-size:1.1em;color:red">c</span><span style="font-size:1.1em;color:orange">o</span><span style="font-size:1.1em;color:blue">l</span><span style="font-size:1.1em;color:green">o</span><span style="font-size:1.1em;color:cyan">r</span><span style="font-size:1.1em;color:yellow">s</span>.
 
-![Regular comment](resource/readme/regular_comment.png)
+Comment Styler supports any programming language (Javascript, Python, C#, C++,...) or even plain text files.
 
-Wouldn't it be nice to style the comment as if it was a Word document?
+You can now write this comment in Javascript:
+
+![Styled JS comment](resource/readme/demojs.png)
+
+Instead of this boring comment:
+
+![Styled JS comment](resource/readme/jsnostyle.png)
+
+Or, this Python comment:
 
 ![Styled comment](resource/readme/styled_comment.png)
+
+Instead of this...
+
+![Regular comment](resource/readme/regular_comment.png)
 
 ## Features
 
