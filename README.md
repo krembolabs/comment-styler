@@ -3,7 +3,7 @@
 
 This extension allows you to style your code comments as if you were using a word processor.
 
-Write comments with **bold** and *italic* letters or use various <span style="font-size:1.3em">font sizes</span> and <span style="font-size:1.1em;color:red">c</span><span style="font-size:1.1em;color:orange">o</span><span style="font-size:1.1em;color:blue">l</span><span style="font-size:1.1em;color:green">o</span><span style="font-size:1.1em;color:cyan">r</span><span style="font-size:1.1em;color:yellow">s</span>.
+Write comments in **bold** and *italic* letters or use various <span style="font-size:1.3em">font sizes</span> and <span style="font-size:1.1em;color:red">c</span><span style="font-size:1.1em;color:orange">o</span><span style="font-size:1.1em;color:blue">l</span><span style="font-size:1.1em;color:green">o</span><span style="font-size:1.1em;color:cyan">r</span><span style="font-size:1.1em;color:yellow">s</span>.
 
 Comment Styler supports any programming language (Javascript, Python, C#, C++,...) or even plain text files.
 
