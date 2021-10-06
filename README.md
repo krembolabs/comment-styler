@@ -1,7 +1,7 @@
 # Comment Styler
-This extension allows you to style your code comments as if you were using a word processor.
+This Visual Studio Code extension allows you to style your code comments as if you were using a word processor.
 
-Write comments in **bold** and *italic* letters or use various <span style="font-size:1.3em">font sizes</span> and <span style="font-size:1.1em;color:red">c</span><span style="font-size:1.1em;color:orange">o</span><span style="font-size:1.1em;color:blue">l</span><span style="font-size:1.1em;color:green">o</span><span style="font-size:1.1em;color:cyan">r</span><span style="font-size:1.1em;color:yellow">s</span>.
+Write comments in **bold** and *italic* letters or use various <span style="font-size:1.3em">font sizes</span> and <span style="font-size:1.2em;color:red">c</span><span style="font-size:1.2em;color:orange">o</span><span style="font-size:1.2em;color:blue">l</span><span style="font-size:1.2em;color:green">o</span><span style="font-size:1.2em;color:cyan">r</span><span style="font-size:1.2em;color:yellow">s</span>.
 
 Comment Styler supports any programming language (Javascript, Python, C#, C++,...) or even plain text files.
 
@@ -20,6 +20,12 @@ Or, this Python comment:
 Instead of this...
 
 ![Regular comment](resource/readme/regular_comment.png)
+
+
+## Installing
+
+You can install the latest version of the extension via the Visual Studio Marketplace [here](https://marketplace.visualstudio.com/items?itemName=krembolabs.comment-styler).
+
 
 ## Features
 
