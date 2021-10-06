@@ -158,8 +158,10 @@ class Formatter {
         if (sample.length == 1) {
             firstCharIndex = 0;
         } else {
+            // Has only color/size
             if (sample.length >= 4 && isControlChar(sample.charAt(0))) {
                 firstCharIndex = 4;
+                // Has both color and size
                 if (sample.length >= 8 && isControlChar(sample.charAt(4))) {
                     firstCharIndex = 8;
                 }
@@ -172,8 +174,8 @@ class Formatter {
 
         // This is probably not a simple font, go over registered fonts and look for appropriate one
         for (const f in FontType) {
-            const font = FontType[f as keyof typeof FontType];
-            if (font.letters.indexOf(sample[firstCharIndex]) >= 0) {
+            const font = FontType[f as keyof typeof FontType];            
+            if (font.letters.indexOf(sample[firstCharIndex+1]) >= 0) {
                 return font;
             }
         }
@@ -285,6 +287,9 @@ class Formatter {
         let noUS = text.replace(/͟/g, '');
         if (noUS.length < text.length) {
             return noUS;
+        }
+        if (text.length==1) {
+            return UNDERSCORE+text;
         }
 
         let result = "";
